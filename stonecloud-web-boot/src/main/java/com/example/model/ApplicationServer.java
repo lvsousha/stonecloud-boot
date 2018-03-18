@@ -5,13 +5,16 @@ import java.util.Date;
 import java.util.List;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
+import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.UpdateTimestamp;
 
 @Entity
 public class ApplicationServer implements Serializable{
@@ -72,12 +75,16 @@ public class ApplicationServer implements Serializable{
 	public void setContext(String context) {
 		this.context = context;
 	}
+	@CreationTimestamp
+	@Column(updatable = false)
 	public Date getCreateDate() {
 		return createDate;
 	}
 	public void setCreateDate(Date createDate) {
 		this.createDate = createDate;
 	}
+	@UpdateTimestamp
+	@Column(insertable = true)
 	public Date getUpdateDate() {
 		return updateDate;
 	}

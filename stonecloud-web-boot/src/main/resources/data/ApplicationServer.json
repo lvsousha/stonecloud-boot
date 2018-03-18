@@ -1,0 +1,11 @@
+[{
+    "serverName":"ODR_PRODUCT",
+    "protocl":"https",
+    "ip":"127.0.0.1",
+    "port":"443",
+    "context":"/",
+    "adminUsers":[{
+        "userName":"odr_product",
+        "password":"670b14728ad9902aecba32e22fa4f6bd"
+    }]
+}]
