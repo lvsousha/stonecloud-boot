@@ -10,22 +10,21 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.mapper.ApplicationServerMapper;
+import com.example.config.BasicConfigBean;
 import com.example.model.AdminUser;
-import com.example.model.ApplicationServer;
 
 @RestController
 public class ExampleController {
 
 	@Autowired
-	private ApplicationServerMapper applicationServerMapper;
-	@Autowired
 	@Qualifier("entityManagerPrimary")
 	private EntityManager entityManager;
+	@Autowired
+	private BasicConfigBean basicConfig;
 	
 	@RequestMapping("/")
 	String home() {
-		return "Hello World!";
+		return basicConfig.getName();
 	}
 	
 	@RequestMapping("/nativeQuery")

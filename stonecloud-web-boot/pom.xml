@@ -74,10 +74,8 @@
 		<!-- 因为配置了thymeleaf 模板，可以将此注释 <dependency> <groupId>org.springframework.boot</groupId> 
 			<artifactId>spring-boot-starter-web</artifactId> </dependency> -->
 		<!-- thymeleaf 模板 默认包含spring-boot-starter-web -->
-		<!-- <dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-thymeleaf</artifactId>
-		</dependency> -->
+		<!-- <dependency> <groupId>org.springframework.boot</groupId> <artifactId>spring-boot-starter-thymeleaf</artifactId> 
+			</dependency> -->
 
 		<!-- 连接mysql数据库驱动 -->
 		<dependency>
@@ -98,7 +96,7 @@
 			<artifactId>spring-boot-configuration-processor</artifactId>
 			<optional>true</optional>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>commons-io</groupId>
 			<artifactId>commons-io</artifactId>
@@ -110,7 +108,39 @@
 			<version>1.2.38</version>
 		</dependency>
 	</dependencies>
+	<profiles>
+		<profile>
+			<id>dev</id>
+			<properties>
+				<profileActive>dev</profileActive>
+			</properties>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+		</profile>
+		<profile>
+			<id>test</id>
+			<properties>
+				<profileActive>test</profileActive>
+			</properties>
+			<activation>
+				<activeByDefault>false</activeByDefault>
+			</activation>
+		</profile>
+	</profiles>
 	<build>
+		<resources>
+			<resource>
+				<directory>src/main/resources/</directory>
+				<includes>
+					<include>config/${profileActive}/datasource.properties</include>
+					<include>config/${profileActive}/basicConfig.properties</include>
+					<include>config/application.properties</include>
+					<include>data/</include>
+				</includes>
+				<filtering>true</filtering>
+			</resource>
+		</resources>
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
