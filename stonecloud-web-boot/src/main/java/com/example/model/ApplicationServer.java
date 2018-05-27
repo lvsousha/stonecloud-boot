@@ -4,19 +4,6 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-
-import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.GenericGenerator;
-import org.hibernate.annotations.UpdateTimestamp;
-
-@Entity
 public class ApplicationServer implements Serializable{
 
 	/**
@@ -36,9 +23,6 @@ public class ApplicationServer implements Serializable{
 	
 	private List<AdminUser> adminUsers;
 	
-	@Id  
-    @GenericGenerator(name="idGenerator", strategy="uuid") //这个是hibernate的注解/生成32位UUID  
-    @GeneratedValue(generator="idGenerator")  
 	public String getUuid() {
 		return uuid;
 	}
@@ -75,16 +59,12 @@ public class ApplicationServer implements Serializable{
 	public void setContext(String context) {
 		this.context = context;
 	}
-	@CreationTimestamp
-	@Column(updatable = false)
 	public Date getCreateDate() {
 		return createDate;
 	}
 	public void setCreateDate(Date createDate) {
 		this.createDate = createDate;
 	}
-	@UpdateTimestamp
-	@Column(insertable = true)
 	public Date getUpdateDate() {
 		return updateDate;
 	}
@@ -97,7 +77,6 @@ public class ApplicationServer implements Serializable{
 	public void setTokeKey(String tokeKey) {
 		this.tokeKey = tokeKey;
 	}
-	@OneToMany(mappedBy = "applicationServer", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	public List<AdminUser> getAdminUsers() {
 		return adminUsers;
 	}
