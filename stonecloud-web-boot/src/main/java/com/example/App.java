@@ -6,9 +6,11 @@ import java.sql.SQLException;
 
 import javax.sql.DataSource;
 
+import org.apache.ibatis.session.SqlSessionFactory;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
+import org.springframework.http.codec.multipart.SynchronossPartHttpMessageReader;
 
 import com.zaxxer.hikari.HikariDataSource;
 
@@ -18,6 +20,7 @@ public class App {
 	public static void main(String[] args) {
 		ApplicationContext applicationContext = SpringApplication.run(App.class, args);
 		DataSource dataSource = applicationContext.getBean(DataSource.class);
+		System.out.println("factory:"+applicationContext.getBean(SqlSessionFactory.class).getClass().getName());
 		System.out.println("datasource is :" + dataSource);
 		// 检查数据库是否是hikar数据库连接池
 		if (!(dataSource instanceof HikariDataSource)) {
