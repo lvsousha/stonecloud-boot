@@ -3,6 +3,9 @@ package com.example.model;
 import java.io.Serializable;
 import java.util.Date;
 
+import com.baomidou.mybatisplus.annotations.TableName;
+
+@TableName("adminuser")
 public class AdminUser implements Serializable{
 
 
@@ -10,7 +13,7 @@ public class AdminUser implements Serializable{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private String uuid;							//唯一标识
+	private Long uuid;							//唯一标识
 	private String userName;					//服务名称
 	private String password;					//协议
 	private ApplicationServer applicationServer;//服务器
@@ -47,10 +50,10 @@ public class AdminUser implements Serializable{
 	public void setApplicationServer(ApplicationServer applicationServer) {
 		this.applicationServer = applicationServer;
 	}
-	public String getUuid() {
+	public Long getUuid() {
 		return uuid;
 	}
-	public void setUuid(String uuid) {
+	public void setUuid(Long uuid) {
 		this.uuid = uuid;
 	}
 }

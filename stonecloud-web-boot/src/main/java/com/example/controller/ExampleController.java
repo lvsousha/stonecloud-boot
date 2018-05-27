@@ -7,6 +7,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.config.BasicConfigBean;
+import com.example.mapper.AdminUserMapper;
+import com.example.model.AdminUser;
 
 @RestController
 public class ExampleController {
@@ -15,11 +17,16 @@ public class ExampleController {
 	
 	@Autowired
 	private BasicConfigBean basicConfig;
+	@Autowired
+	private AdminUserMapper adminUserMapper;
 	
 	@RequestMapping("/")
 	String home() {
-		log.info("HOME");
-		return basicConfig.getName();
+		log.info(basicConfig.getName());
+		AdminUser user = new AdminUser();
+		user.setUserName("zcl");
+//		adminUserMapper.insert(user);
+		return adminUserMapper.countAdminUser().toString();
 	}
 	
 }

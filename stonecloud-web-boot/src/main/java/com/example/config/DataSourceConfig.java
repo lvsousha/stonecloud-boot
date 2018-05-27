@@ -12,6 +12,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
 import org.springframework.context.annotation.PropertySource;
+import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 
 
 @Configuration
@@ -32,6 +33,11 @@ public class DataSourceConfig {
     	log.info(active);
         log.info("数据库连接池创建中.......");
         return DataSourceBuilder.create().build();
+    }
+    
+    @Bean(name="transactionManager") 
+    public DataSourceTransactionManager transactionManager(){
+        return new DataSourceTransactionManager(primaryDataSource());
     }
 	
 }
