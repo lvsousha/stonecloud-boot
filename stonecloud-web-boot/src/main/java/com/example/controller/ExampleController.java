@@ -1,8 +1,11 @@
 package com.example.controller;
 
+import java.util.Calendar;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -21,12 +24,19 @@ public class ExampleController {
 	private AdminUserMapper adminUserMapper;
 	
 	@RequestMapping("/")
-	String home() {
+	public String home() {
 		log.info(basicConfig.getName());
 		AdminUser user = new AdminUser();
-		user.setUserName("zcl");
-//		adminUserMapper.insert(user);
+		user.setUserName(String.valueOf(Calendar.getInstance().getTimeInMillis()));
+		adminUserMapper.insert(user);
 		return adminUserMapper.countAdminUser().toString();
+	}
+	
+	@RequestMapping("/adminUser/{id}")
+	public AdminUser getUser(@PathVariable("id") Long id) {
+		log.info(basicConfig.getName());
+		AdminUser user = adminUserMapper.selectById(id);
+		return user;
 	}
 	
 }

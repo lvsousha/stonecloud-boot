@@ -11,7 +11,7 @@ public class ApplicationServer implements Serializable{
 	 */
 	private static final long serialVersionUID = -6116014887216258423L;
 
-	private String uuid;							//唯一标识
+	private Long id;							//唯一标识
 	private String serverName;					//服务名称
 	private String protocol;					//协议
 	private String ip;							//IP
@@ -23,11 +23,11 @@ public class ApplicationServer implements Serializable{
 	
 	private List<AdminUser> adminUsers;
 	
-	public String getUuid() {
-		return uuid;
+	public Long getId() {
+		return id;
 	}
-	public void setUuid(String uuid) {
-		this.uuid = uuid;
+	public void setUuid(Long id) {
+		this.id = id;
 	}
 	public String getServerName() {
 		return serverName;
