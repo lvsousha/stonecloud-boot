@@ -10,7 +10,6 @@ import org.apache.ibatis.session.SqlSessionFactory;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
-import org.springframework.http.codec.multipart.SynchronossPartHttpMessageReader;
 
 import com.zaxxer.hikari.HikariDataSource;
 
