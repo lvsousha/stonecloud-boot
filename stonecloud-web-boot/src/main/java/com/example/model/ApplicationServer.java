@@ -4,29 +4,35 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
+import com.baomidou.mybatisplus.annotations.TableField;
+import com.baomidou.mybatisplus.annotations.TableId;
+import com.baomidou.mybatisplus.annotations.TableName;
+import com.baomidou.mybatisplus.enums.IdType;
+@TableName("application_server")
 public class ApplicationServer implements Serializable{
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = -6116014887216258423L;
-
+	@TableId(type = IdType.AUTO)
 	private Long id;							//唯一标识
 	private String serverName;					//服务名称
 	private String protocol;					//协议
 	private String ip;							//IP
 	private String port;						//端口号
 	private String context;						//应用名
-	private String tokeKey;						//生成token的密钥
+	private String tokenKey;						//生成token的密钥
 	private Date createDate;					//创建日期
 	private Date updateDate;					//更新日期
 	
+	@TableField(exist=false)
 	private List<AdminUser> adminUsers;
 	
 	public Long getId() {
 		return id;
 	}
-	public void setUuid(Long id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 	public String getServerName() {
@@ -72,10 +78,10 @@ public class ApplicationServer implements Serializable{
 		this.updateDate = updateDate;
 	}
 	public String getTokeKey() {
-		return tokeKey;
+		return tokenKey;
 	}
-	public void setTokeKey(String tokeKey) {
-		this.tokeKey = tokeKey;
+	public void setTokeKey(String tokenKey) {
+		this.tokenKey = tokenKey;
 	}
 	public List<AdminUser> getAdminUsers() {
 		return adminUsers;

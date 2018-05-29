@@ -11,7 +11,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.config.BasicConfigBean;
 import com.example.mapper.AdminUserMapper;
+import com.example.mapper.ApplicationServerMapper;
 import com.example.model.AdminUser;
+import com.example.model.ApplicationServer;
 
 @RestController
 public class ExampleController {
@@ -22,12 +24,18 @@ public class ExampleController {
 	private BasicConfigBean basicConfig;
 	@Autowired
 	private AdminUserMapper adminUserMapper;
+	@Autowired
+	private ApplicationServerMapper applicationServerMapper;
 	
 	@RequestMapping("/")
 	public String home() {
 		log.info(basicConfig.getName());
 		AdminUser user = new AdminUser();
 		user.setUserName(String.valueOf(Calendar.getInstance().getTimeInMillis()));
+		ApplicationServer as = new ApplicationServer();
+		as.setServerName("insert");
+		applicationServerMapper.insert(as);
+		user.setApplicationServer(as);
 		adminUserMapper.insert(user);
 		return adminUserMapper.countAdminUser().toString();
 	}

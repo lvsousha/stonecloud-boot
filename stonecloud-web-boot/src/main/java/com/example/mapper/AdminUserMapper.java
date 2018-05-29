@@ -9,5 +9,6 @@ import com.example.model.AdminUser;
 public interface AdminUserMapper extends BaseMapper<AdminUser>{
 
 	public Integer countAdminUser();
+//	public AdminUser selectById(Long id);
 	
 }

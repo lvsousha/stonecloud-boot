@@ -6,10 +6,9 @@ import java.util.Date;
 import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.annotations.TableName;
-import com.baomidou.mybatisplus.enums.FieldStrategy;
 import com.baomidou.mybatisplus.enums.IdType;
 
-@TableName("adminuser")
+@TableName("admin_user")
 public class AdminUser implements Serializable{
 
 
@@ -21,7 +20,7 @@ public class AdminUser implements Serializable{
 	private Long id;							//唯一标识
 	private String userName;					//服务名称
 	private String password;					//协议
-	@TableField(el = "applicationServer, jdbcType=BIGINT")
+	@TableField(el = "applicationServer.id, jdbcType=BIGINT")
 	private ApplicationServer applicationServer;//服务器
 	private Date createDate;					//创建日期
 	private Date updateDate;					//更新日期

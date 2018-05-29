@@ -41,7 +41,7 @@ public class MybatisPlusUtils {
 		gc.setEnableCache(false);// XML 二级缓存
 		gc.setBaseResultMap(true);// XML ResultMap
 		gc.setBaseColumnList(false);// XML columList
-		gc.setAuthor("SPF");
+		gc.setAuthor("郑昌林");
 
 		// 自定义文件命名，注意 %s 会自动填充表实体属性！
 		gc.setMapperName("%sMapper");
@@ -74,7 +74,7 @@ public class MybatisPlusUtils {
 		// strategy.setCapitalMode(true);// 全局大写命名 ORACLE 注意
 		strategy.setTablePrefix(new String[] { "tlog_", "tsys_" });// 此处可以修改为您的表前缀
 		strategy.setNaming(NamingStrategy.underline_to_camel);// 表名生成策略
-		strategy.setInclude(new String[] { "adminuser" }); // 需要生成的表
+		strategy.setInclude(new String[] { "admin_user","application_server" }); // 需要生成的表
 		// strategy.setExclude(new String[]{"test"}); // 排除生成的表
 		// 自定义实体父类
 		// strategy.setSuperEntityClass("com.spf.model.Entity");
@@ -98,9 +98,9 @@ public class MybatisPlusUtils {
 
 		// 包配置
 		PackageConfig pc = new PackageConfig();
-		pc.setParent("com.spf");
+		pc.setParent("com.example");
 		pc.setController("controller");
-		pc.setEntity("entity");
+		pc.setEntity("model");
 		pc.setMapper("mapper");
 		pc.setService("service");
 		pc.setServiceImpl("impl");
