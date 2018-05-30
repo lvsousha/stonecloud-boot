@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration scan="true" scanPeriod="60 seconds" debug="false">
-	<contextName>logback</contextName>
+	<contextName>DEV</contextName>
 	<property name="log.path" value="/usr/logs/stonecloud-boot" />
 	<!--输出到控制台 -->
 	<appender name="console" class="ch.qos.logback.core.ConsoleAppender">
@@ -8,7 +8,7 @@
 			<level>INFO</level> 
 		</filter>
 		<encoder>
-			<pattern>%d{HH:mm:ss.SSS} %contextName [%thread] %-5level %caller{1} -%msg%n</pattern>
+			<pattern>%d{HH:mm:ss.SSS} %contextName %level %caller{1} -%msg%n</pattern>
 		</encoder>
 	</appender>
 
@@ -23,15 +23,12 @@
 		</encoder>
 	</appender>
 
-	<root level="info">
+	<root level="INFO">
 		<appender-ref ref="console" />
 		<appender-ref ref="file" />
 	</root>
 
-	<!-- logback为java中的包 -->
-	<logger name="com.dudu.controller" />
-	<!--logback.LogbackDemo：类的全路径 -->
-	<logger name="com.dudu.controller.LearnController" level="WARN"
+	<logger name="com.exmaple.controller" level="INFO"
 		additivity="false">
 		<appender-ref ref="console" />
 	</logger>

@@ -8,6 +8,13 @@ public class ApiException extends Exception {
 
 	private JSONObject result;
 	
+	public static JSONObject ERROR = new JSONObject();
+	static{
+		ERROR.put("code", "500");
+		ERROR.put("message", "服务器发送未知错误");
+		ERROR.put("result", new JSONObject());
+	}
+	
 	public ApiException(JSONObject result) {
 		super(result.toString());
 		this.setResult(result);

@@ -6,6 +6,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -45,6 +46,17 @@ public class ExampleController {
 		log.info(basicConfig.getName());
 		AdminUser user = adminUserMapper.selectById(id);
 		return user;
+	}
+	
+	@RequestMapping("/ex")
+	public AdminUser ex(@RequestBody String params) throws Exception {
+		log.info(basicConfig.getName());
+		Boolean flag = true;
+		if(flag){
+//			throw new ApiException("");
+			throw new Exception("");
+		}
+		return null;
 	}
 	
 }
