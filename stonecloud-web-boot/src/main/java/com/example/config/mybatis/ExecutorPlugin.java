@@ -14,7 +14,6 @@ import org.apache.ibatis.plugin.Signature;
 import org.apache.ibatis.session.ResultHandler;
 import org.apache.ibatis.session.RowBounds;
 import org.apache.log4j.Logger;
-import org.springframework.context.annotation.Configuration;
 
 @Intercepts({ @Signature(type = Executor.class, 
 							method = "query", 

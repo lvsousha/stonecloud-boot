@@ -29,6 +29,7 @@ public class GlobalDefultExceptionHandler {
 	
 	@ExceptionHandler(Exception.class)  
     public Object defultExcepitonHandler(HttpServletRequest req, Exception e) throws IOException {  
+		log.info("defultExcepitonHandler");
 		String contentTypeHeader = req.getHeader("Content-Type");
         String acceptHeader = req.getHeader("Accept");
         String xRequestedWith = req.getHeader("X-Requested-With");
@@ -41,7 +42,7 @@ public class GlobalDefultExceptionHandler {
             ModelAndView modelAndView = new ModelAndView();
             modelAndView.addObject("detailMessage", HttpStatus.INTERNAL_SERVER_ERROR);
             modelAndView.addObject("url", req.getRequestURL());
-            modelAndView.setViewName("error");
+            modelAndView.setViewName("login");
             return modelAndView;
         }
     }
