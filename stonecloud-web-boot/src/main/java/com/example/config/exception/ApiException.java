@@ -1,4 +1,4 @@
-package com.example.globalException;
+package com.example.config.exception;
 
 import com.alibaba.fastjson.JSONObject;
 

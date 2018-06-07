@@ -1,4 +1,4 @@
-package com.example.config;
+package com.example.config.mybatis;
 
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.context.annotation.Bean;
@@ -33,6 +33,11 @@ public class MybatisPlusConfig {
 	@Bean
 	public PaginationInterceptor paginationInterceptor() {
 		return new PaginationInterceptor();
+	}
+	
+	@Bean
+	public ExecutorPlugin ExecutorPlugin() {
+		return new ExecutorPlugin();
 	}
 
 }

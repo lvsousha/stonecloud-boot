@@ -4,7 +4,7 @@ DataSource:
 	mybatis
 Web启动：
 	可以初始化数据库
-权限控制：
+权限控制：(注释)
 	spring-security（目前对所有的地址都不拦截）
 全局的错误处理
 	ApiException

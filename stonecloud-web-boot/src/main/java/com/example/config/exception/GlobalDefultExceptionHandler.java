@@ -1,4 +1,4 @@
-package com.example.config;
+package com.example.config.exception;
 
 import java.io.IOException;
 
@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.alibaba.fastjson.JSONObject;
-import com.example.globalException.ApiException;
 
 @ControllerAdvice
 public class GlobalDefultExceptionHandler {
