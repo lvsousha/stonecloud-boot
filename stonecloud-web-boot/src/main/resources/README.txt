@@ -1,0 +1,12 @@
+DataSource:
+	HikariCP
+持久层框架：
+	mybatis
+Web启动：
+	可以初始化数据库
+权限控制：
+	spring-security（目前对所有的地址都不拦截）
+全局的错误处理
+	ApiException
+属性值的获取
+	BasicConfigBean
