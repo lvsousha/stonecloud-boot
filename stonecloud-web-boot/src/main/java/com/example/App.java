@@ -19,8 +19,8 @@ public class App {
 	public static void main(String[] args) {
 		ApplicationContext applicationContext = SpringApplication.run(App.class, args);
 		DataSource dataSource = applicationContext.getBean(DataSource.class);
-		System.out.println("factory:"+applicationContext.getBean(SqlSessionFactory.class).getClass().getName());
-		System.out.println("datasource is :" + dataSource);
+		System.err.println("factory:"+applicationContext.getBean(SqlSessionFactory.class).getClass().getName());
+		System.err.println("datasource is :" + dataSource);
 		// 检查数据库是否是hikar数据库连接池
 		if (!(dataSource instanceof HikariDataSource)) {
 			System.err.println(" Wrong datasource type :" + dataSource.getClass().getCanonicalName());
@@ -31,15 +31,15 @@ public class App {
 			ResultSet rs = connection.createStatement().executeQuery("SELECT 1");
 			if (rs.first()) {
 
-				System.out.println("Connection OK!");
+				System.err.println("Connection OK!");
 			} else {
-				System.out.println("Something is wrong");
+				System.err.println("Something is wrong");
 			}
 			// connection.close();
 			// System.exit(0);
 
 		} catch (SQLException e) {
-			System.out.println("FAILED");
+			System.err.println("FAILED");
 			e.printStackTrace();
 			System.exit(-2);
 			// TODO: handle exception
