@@ -1,4 +1,4 @@
-package com.example.config.security;
+package com.example.config.security.token;
 
 import java.util.Collection;
 import org.springframework.security.authentication.AbstractAuthenticationToken;

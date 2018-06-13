@@ -1,4 +1,4 @@
-package com.example.config.security;
+package com.example.config.security.token;
 
 import java.util.Arrays;
 
@@ -39,26 +39,53 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
   @Override
   public void configure(WebSecurity web) throws Exception {
-    web.ignoring().antMatchers( "/auth/**", "/api1/**", "/video/jump/**",
-        "/video/show/**", "/testWebSocket/**", "/resources/static/**", "/accessMeeting/**", "/download*",
-        "/sign/jump/**", "/TAk5by24Yw.txt", "/video/saveVideo*", "/swagger-ui.html", "/webjars/**",
-        "/swagger-resources/**", "/v2/**");
+    web.ignoring().antMatchers( 
+    		"/auth/**", 
+    		"/api1/**", 
+    		"/video/jump/**",
+    		"/video/show/**", 
+    		"/testWebSocket/**", 
+    		"/resources/static/**", 
+    		"/accessMeeting/**", 
+    		"/download*",
+    		"/sign/jump/**", 
+    		"/TAk5by24Yw.txt", 
+    		"/video/saveVideo*", 
+    		"/swagger-ui.html", 
+    		"/webjars/**",
+    		"/swagger-resources/**", 
+    		"/v2/**");
   }
 
   @Override
   protected void configure(HttpSecurity http) throws Exception {
-    http.csrf().disable().cors().and().exceptionHandling().authenticationEntryPoint(new JWTAuthenticationEntryPoint())
-        .accessDeniedHandler(new JWTAccessDeniedHandler()).and()
-        .addFilterAfter(jwtAuthenticationFilter, BasicAuthenticationFilter.class)
-        .authenticationProvider(jwtAuthenticationProvider).authorizeRequests()
-
-        .antMatchers("/bank/**").hasAnyAuthority(ROLE_BANK).antMatchers("/notarybusiness/**")
-        .hasAnyAuthority(ROLE_NOTARY).antMatchers("/user/**", "/authRoleRelation/**", "/dictionary/**", "/menu/**",
-            "/role/**", "/userRoleRelation/**")
-        .hasAnyAuthority(ROLE_SYSADMIN)
-
-        .filterSecurityInterceptorOncePerRequest(true).anyRequest().authenticated().and().logout().logoutUrl("/logout")
-        .addLogoutHandler(new JWTLogoutHandler()).logoutSuccessHandler(new JWTLogoutSuccessHandler());
+    http
+    		.csrf().disable().cors()
+    	.and()
+    		.exceptionHandling()
+    		.authenticationEntryPoint(new JWTAuthenticationEntryPoint())
+    		.accessDeniedHandler(new JWTAccessDeniedHandler())
+    	.and()
+    		.addFilterAfter(jwtAuthenticationFilter, BasicAuthenticationFilter.class)
+    		.authenticationProvider(jwtAuthenticationProvider)
+    		.authorizeRequests()
+    		.antMatchers("/bank/**")
+    		
+    		.hasAnyAuthority(ROLE_BANK)
+    		.antMatchers("/notarybusiness/**")
+    		
+    		.hasAnyAuthority(ROLE_NOTARY)
+    		.antMatchers("/user/**", "/authRoleRelation/**", "/dictionary/**", "/menu/**","/role/**", "/userRoleRelation/**")
+    		
+    		.hasAnyAuthority(ROLE_SYSADMIN)
+    		.filterSecurityInterceptorOncePerRequest(true)
+    		.anyRequest()
+    		.authenticated()
+    	.and()
+    		.logout()
+    		.logoutUrl("/logout")
+    		.addLogoutHandler(new JWTLogoutHandler())
+    		.logoutSuccessHandler(new JWTLogoutSuccessHandler());
   }
 
   @Bean

@@ -1,4 +1,4 @@
-package com.example.config.security;
+package com.example.config.security.token;
 
 import java.io.IOException;
 
@@ -36,7 +36,7 @@ public class JWTAuthenticationFilter extends OncePerRequestFilter {
     try {
       filterChain.doFilter(request, response);
     } catch (Exception e) {
-      Result res = Result.failed(e);
+      Result<?> res = Result.failed(e);
       if (e instanceof AppException) {
         log.error("exception : {}", res.getMessage());
       } else {
