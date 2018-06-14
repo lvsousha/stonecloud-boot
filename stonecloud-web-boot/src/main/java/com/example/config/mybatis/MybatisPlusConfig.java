@@ -1,6 +1,5 @@
 package com.example.config.mybatis;
 
-import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -8,7 +7,6 @@ import com.baomidou.mybatisplus.plugins.PaginationInterceptor;
 import com.baomidou.mybatisplus.plugins.PerformanceInterceptor;
 
 @Configuration
-@MapperScan("com.example.mapper*")
 public class MybatisPlusConfig {
 	/***
 	 * plus 的性能优化
