@@ -13,8 +13,9 @@ import org.springframework.context.ApplicationContext;
 
 import com.zaxxer.hikari.HikariDataSource;
 
-@SpringBootApplication // same as @Configuration @EnableAutoConfiguration
-						// @ComponentScan
+import springfox.documentation.swagger2.annotations.EnableSwagger2;
+@SpringBootApplication // same as @Configuration @EnableAutoConfiguration @ComponentScan
+@EnableSwagger2
 public class App {
 	public static void main(String[] args) {
 		ApplicationContext applicationContext = SpringApplication.run(App.class, args);

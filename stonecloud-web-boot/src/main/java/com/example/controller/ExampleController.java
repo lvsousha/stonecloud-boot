@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -14,6 +15,12 @@ import com.example.config.BasicConfigBean;
 import com.example.mapper.AdminUserMapper;
 import com.example.model.AdminUser;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
+import io.swagger.annotations.ApiOperation;
+
+@Api(value="/example", tags="测试接口模块")
 @Controller
 public class ExampleController {
 
@@ -40,6 +47,10 @@ public class ExampleController {
 		return mav;
 	}
 	
+	@ApiOperation(value="获取用户详细信息", notes="根据url的id来获取用户详细信息", httpMethod="GET")
+	@ApiImplicitParams({
+		@ApiImplicitParam(name = "id", value = "用户ID", required = true, dataType = "Long",paramType = "path")
+	})
 	@RequestMapping("/adminUser/{id}")
 	@ResponseBody
 	public AdminUser getUser(@PathVariable("id") Long id) {

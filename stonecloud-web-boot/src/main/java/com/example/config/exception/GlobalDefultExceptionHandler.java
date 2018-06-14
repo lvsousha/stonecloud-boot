@@ -30,6 +30,7 @@ public class GlobalDefultExceptionHandler {
 	@ExceptionHandler(Exception.class)  
     public Object defultExcepitonHandler(HttpServletRequest req, Exception e) throws IOException {  
 		log.info("defultExcepitonHandler");
+		log.error("", e);
 		String contentTypeHeader = req.getHeader("Content-Type");
         String acceptHeader = req.getHeader("Accept");
         String xRequestedWith = req.getHeader("X-Requested-With");
