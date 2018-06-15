@@ -10,6 +10,8 @@ import org.apache.ibatis.session.SqlSessionFactory;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.PropertySource;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import com.zaxxer.hikari.HikariDataSource;
 
@@ -18,6 +20,8 @@ import tk.mybatis.spring.annotation.MapperScan;
 @SpringBootApplication // same as @Configuration @EnableAutoConfiguration @ComponentScan
 @EnableSwagger2
 @MapperScan("com.example.mapper")
+@EnableTransactionManagement
+@PropertySource("classpath:config/${spring.profiles.active}/redis.properties")
 public class App {
 	public static void main(String[] args) {
 		ApplicationContext applicationContext = SpringApplication.run(App.class, args);
