@@ -7,7 +7,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.stereotype.Component;
@@ -25,13 +26,12 @@ import lombok.extern.slf4j.Slf4j;
 
 @Component
 @Slf4j
+@PropertySource("classpath:config/${spring.profiles.active}/jwt.properties")
+@ConfigurationProperties(prefix="jwt" )
 public class TokenGenerator {
 
-	@Value("${jwt.secret}")
 	private String jwtSecret;
-	@Value("${jwt.expireMinutes.authToken}")
 	private int authTokenExpireMinutes;
-	@Value("${jwt.expireMinutes.refreshToken}")
 	private int refreshTokenExpireMinutes;
 
 	/**
