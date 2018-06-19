@@ -34,6 +34,7 @@ public class UserController {
 	@RequestMapping("/insertUser")
 	public AdminUser insertUser(@RequestBody String params) throws Exception {
 		log.info("insertUser");
+		log.info(params);
 		AdminUser adminUser = new AdminUser();
 		adminUser.setUserName("tkMapper");
 		int id = tkAdminUserMapper.insert(adminUser);
