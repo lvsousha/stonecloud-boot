@@ -10,3 +10,5 @@ Web启动：
 	ApiException
 属性值的获取
 	BasicConfigBean
+消息中间件
+	rocketmq
