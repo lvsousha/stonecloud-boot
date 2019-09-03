@@ -21,7 +21,7 @@ import tk.mybatis.spring.annotation.MapperScan;
 @EnableSwagger2
 @MapperScan("com.stone.mapper")
 @EnableTransactionManagement
-@PropertySource(value = {"classpath:config/${spring.profiles.active}/redis.properties"},factory = CompositePropertySourceFactory.class)
+@PropertySource(value = {"classpath:config/${spring.profiles.active}/redis.yml"},factory = CompositePropertySourceFactory.class)
 public class App {
 	public static void main(String[] args) {
 		ApplicationContext applicationContext = SpringApplication.run(App.class, args);
