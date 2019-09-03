@@ -7,9 +7,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
-
-import com.example.config.BasicConfigBean;
-import com.example.controller.UserController;
+import com.stone.config.BasicConfigBean;
+import com.stone.controller.UserController;
 
 @SpringBootTest
 @RunWith(SpringRunner.class)

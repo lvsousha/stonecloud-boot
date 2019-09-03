@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.example.mapper.AdminUserMapper">
+<mapper namespace="com.stone.mapper.AdminUserMapper">
 
-	<resultMap id="BaseResultMap" type="com.example.model.AdminUser">
+	<resultMap id="BaseResultMap" type="com.stone.model.AdminUser">
         <id column="id" property="id" />
         <result column="userName" property="userName" />
         <result column="password" property="password" />
@@ -11,14 +11,14 @@
         <result column="applicationServer" property="applicationServer" />
     </resultMap>
     
-    <resultMap id="associationResultMap" type="com.example.model.AdminUser">
+    <resultMap id="associationResultMap" type="com.stone.model.AdminUser">
         <id column="id" property="id" />
         <result column="userName" property="userName" />
         <result column="password" property="password" />
         <result column="createDate" property="createDate" />
         <result column="updateDate" property="updateDate" />
         <association property="applicationServer" 
-        	select="com.example.mapper.ApplicationServerMapper.selectById"
+        	select="com.stone.mapper.ApplicationServerMapper.selectById"
 	    	column="applicationServer">
 		</association>
     </resultMap>
