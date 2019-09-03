@@ -1,5 +1,7 @@
 package com.stone.config.exception;
 
+import com.stone.enums.ErrorCode;
+
 @SuppressWarnings({ "rawtypes", "unchecked" })
 public class Result<T> {
 

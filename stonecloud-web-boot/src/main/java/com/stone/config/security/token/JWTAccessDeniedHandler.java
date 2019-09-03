@@ -20,7 +20,7 @@ public class JWTAccessDeniedHandler implements AccessDeniedHandler {
 
     response.setContentType(MediaType.APPLICATION_JSON_UTF8_VALUE);
     response.getWriter()
-        .write(JSONObject.toJSONString(Result.failed(new AppException(com.stone.config.exception.ErrorCode.ACCESS_DENIED))));
+        .write(JSONObject.toJSONString(Result.failed(new AppException(com.stone.enums.ErrorCode.ACCESS_DENIED))));
     response.flushBuffer();
   }
 }

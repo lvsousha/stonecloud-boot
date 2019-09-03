@@ -14,7 +14,7 @@ import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.stereotype.Component;
 import com.google.common.collect.Maps;
 import com.stone.config.exception.AppException;
-import com.stone.config.exception.ErrorCode;
+import com.stone.enums.ErrorCode;
 import com.stone.model.AdminUser;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;

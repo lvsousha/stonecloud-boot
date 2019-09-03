@@ -5,7 +5,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 
 @Configuration
-@PropertySource("classpath:config/${spring.profiles.active}/basicConfig.properties")
+@PropertySource("classpath:config/${spring.profiles.active}/basicConfig.yml")
 @ConfigurationProperties(prefix="config.basic" )
 public class BasicConfigBean {
 

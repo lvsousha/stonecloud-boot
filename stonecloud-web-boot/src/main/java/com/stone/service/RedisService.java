@@ -1,6 +1,7 @@
-package com.stone.config.redis;
+package com.stone.service;
 
 import java.util.concurrent.TimeUnit;
+import com.stone.enums.RedisKey;
 
 public interface RedisService {
   <T> T get(RedisKey key);

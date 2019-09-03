@@ -1,4 +1,4 @@
-package com.stone.config.exception;
+package com.stone.enums;
 
 /**
  * 错误码规则为四位纯数字 

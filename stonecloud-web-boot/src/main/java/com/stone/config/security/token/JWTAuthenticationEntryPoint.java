@@ -12,8 +12,8 @@ import org.springframework.security.web.AuthenticationEntryPoint;
 
 import com.alibaba.fastjson.JSONObject;
 import com.stone.config.exception.AppException;
-import com.stone.config.exception.ErrorCode;
 import com.stone.config.exception.Result;
+import com.stone.enums.ErrorCode;
 
 public class JWTAuthenticationEntryPoint implements AuthenticationEntryPoint {
 

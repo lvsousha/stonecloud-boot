@@ -1,4 +1,4 @@
-package com.stone.config.redis;
+package com.stone.enums;
 
 public enum RedisKey {
   /**

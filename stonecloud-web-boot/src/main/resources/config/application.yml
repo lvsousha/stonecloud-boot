@@ -1,0 +1,44 @@
+spring:
+ profiles: 
+  active: @profileActive@
+ http: 
+  encoding:
+   force: true
+   charset: UTF-8
+   enabled: true
+server:
+ port: 9080
+ servlet: 
+  contextPath: /stone
+  multipart:
+   maxFileSize: 50MB
+
+spring:
+ mvc: 
+  staticPathPattern: /customer/**
+  view: 
+   prefix: /jsp/
+   suffix: .jsp
+ resources: staticLocations=/customer/
+
+security: 
+ basic: 
+  enabled: false
+
+#指定bean所在包
+mybatis: 
+ typeAliasesPackage: com.stone.model
+#指定映射文件
+mybatisPlus: 
+ mapperLocations: classpath:mapper/*.xml
+
+#监控配置
+management: 
+ server: 
+  addApplicationContextHeader: false
+  port: 9088
+  servlet: contextPath=/monitor
+ endpoints:
+  web:
+   exposure:
+    include: /*

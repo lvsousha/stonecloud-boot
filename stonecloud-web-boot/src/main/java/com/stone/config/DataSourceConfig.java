@@ -16,7 +16,7 @@ import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 
 
 @Configuration
-@PropertySource("classpath:config/${spring.profiles.active}/datasource.properties")
+@PropertySource(value = {"classpath:config/${spring.profiles.active}/datasource.yml"},factory = CompositePropertySourceFactory.class)
 public class DataSourceConfig {
 
 	@Value("${spring.profiles.active}")

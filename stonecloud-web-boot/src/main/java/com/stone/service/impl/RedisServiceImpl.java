@@ -1,4 +1,4 @@
-package com.stone.config.redis;
+package com.stone.service.impl;
 
 import java.util.concurrent.TimeUnit;
 
@@ -6,6 +6,8 @@ import javax.annotation.Resource;
 
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
+import com.stone.enums.RedisKey;
+import com.stone.service.RedisService;
 
 @Service
 public class RedisServiceImpl implements RedisService {
