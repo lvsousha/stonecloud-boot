@@ -1,5 +1,5 @@
 DataSource:
-	HikariCP
+	druid
 持久层框架：
 	mybatis
 Web启动：

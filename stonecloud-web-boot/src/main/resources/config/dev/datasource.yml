@@ -2,30 +2,25 @@
 spring:
  datasource: 
   primary: 
-   dataSourceClassName: com.mysql.jdbc.jdbc2.optional.MysqlDataSource
-   username: root
-   password: root
-   dataSourceProperties: 
-    serverName: localhost
-    portNumber: 3306
-    databaseName: springboot
-  # 下面为连接池的补充设置，应用到上面所有数据源中
-  #自动提交
-  defaultAutoCommit: true
-  #指定updates是否自动提交
-  autoCommit: true
-  maximumPoolSize: 100
-  maxidle: 10
-  maxWait: 10000
-  minIdle: 5
-  initialSize: 5
-  validationQuery: SELECT 1
-  testOnBorrow: false
-  testWhileIdle: true
-  # 配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒 
-  timeBetweenEvictionRunsMillis: 18800
-  # 配置一个连接在池中最小生存的时间，单位是毫秒 
-  minEvictableIdleTimeMillis: 300000
+    url: jdbc:mysql://localhost:3306/springboot?useUnicode=yes&characterEncoding=UTF-8&useSSL=true
+    username: root
+    password: root
+    driverClassName: com.mysql.jdbc.Driver
+    type: com.alibaba.druid.pool.DruidDataSource
+    initialSize: 5
+    minIdle: 5
+    maxActive: 20
+    maxWait: 60000
+    timeBetweenEvictionRunsMillis: 60000
+    minEvictableIdleTimeMillis: 30000
+    validationQuery: SELECT 1
+    testWhileIdle: true
+    testOnBorrow: false
+    testOnReturn: false
+    poolPreparedStatements: true
+    maxPoolPreparedStatementPerConnectionSize: 20
+    filters: stat,wall
+    connectionProperties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=5000
 
 
 
