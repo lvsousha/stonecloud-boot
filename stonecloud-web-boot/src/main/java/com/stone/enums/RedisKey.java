@@ -21,7 +21,9 @@ public enum RedisKey {
    */
   IDCARDVALID_CODE(Boolean.class),
 
-  SHORT_URL(String.class);
+  SHORT_URL(String.class),
+
+  FAMILY(String.class);
 
   private Class<?> clazz;
 

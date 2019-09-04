@@ -17,6 +17,10 @@ public class RedisServiceImpl implements RedisService {
   @Resource
   private RedisTemplate<String, Object> redisTemplate;
 
+  public RedisServiceImpl(RedisTemplate<String, Object> redisTemplate) {
+    this.redisTemplate = redisTemplate;
+  }
+
   private <T> T convertInstanceOfObject(Object o, Class<T> clazz) {
     if (o == null) {
       return null;
