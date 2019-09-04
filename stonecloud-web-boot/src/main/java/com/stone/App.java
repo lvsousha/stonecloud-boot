@@ -10,6 +10,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import com.stone.config.CompositePropertySourceFactory;
+import lombok.extern.slf4j.Slf4j;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 import tk.mybatis.spring.annotation.MapperScan;
 @SpringBootApplication // same as @Configuration @EnableAutoConfiguration @ComponentScan
@@ -17,9 +18,11 @@ import tk.mybatis.spring.annotation.MapperScan;
 @MapperScan("com.stone.mapper")
 @EnableTransactionManagement
 @PropertySource(value = {"classpath:config/${spring.profiles.active}/redis.yml"},factory = CompositePropertySourceFactory.class)
+@Slf4j
 public class App {
 	public static void main(String[] args) {
 		ApplicationContext applicationContext = SpringApplication.run(App.class, args);
+		log.info("=======================");
 		DataSource dataSource = applicationContext.getBean(DataSource.class);
 //		System.err.println("factory:"+applicationContext.getBean(SqlSessionFactory.class).getClass().getName());
 //		System.err.println("datasource is :" + dataSource);

@@ -1,7 +1,10 @@
 DataSource:
 	druid
+	监控地址：http://localhost:9080/stone/druid/index.html
 持久层框架：
 	mybatis
+日志：
+	log4j2
 Web启动：
 	可以初始化数据库
 权限控制：(注释)

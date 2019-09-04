@@ -1,4 +1,5 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.stone</groupId>
@@ -17,24 +18,31 @@
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
 		<version>2.0.0.RELEASE</version>
+		<exclusions>
+			<exclusion>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-starter-logging</artifactId>
+			</exclusion>
+		</exclusions>
 	</parent>
 
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-security</artifactId>
+			<artifactId>spring-boot-starter-tomcat</artifactId>
+			<scope>provided</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-log4j</artifactId>
-			<version>1.3.8.RELEASE</version>
+			<artifactId>spring-boot-starter-security</artifactId>
+			<exclusions>
+				<exclusion>
+					<groupId>org.springframework.boot</groupId>
+					<artifactId>spring-boot-starter-logging</artifactId>
+				</exclusion>
+			</exclusions>
 		</dependency>
-		<dependency>
-			<groupId>org.apache.tomcat.embed</groupId>
-			<artifactId>tomcat-embed-jasper</artifactId>
-			<!-- <scope>provided</scope> -->
-		</dependency>
-		
+
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
@@ -42,6 +50,12 @@
 		<dependency>
 			<groupId> org.springframework.boot </groupId>
 			<artifactId> spring-boot-starter-web </artifactId>
+			<exclusions>
+				<exclusion>
+					<groupId>org.springframework.boot</groupId>
+					<artifactId>spring-boot-starter-logging</artifactId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -77,26 +91,7 @@
 			<artifactId>velocity</artifactId>
 			<version>1.7</version>
 		</dependency>
-		
-		<!-- HikariCP 连接池依赖，从父依赖获取额版本   START-->
-		<!-- JDBC连接数据库，因为要用HikariCP，所以需要将SpringBoot中的tomcat-jdbc排除 -->
-		<!-- <dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-jdbc</artifactId>
-			<exclusions>
-				<exclusion>
-					<groupId>org.apache.tomcat</groupId>
-					<artifactId>tomcat-jdbc</artifactId>
-				</exclusion>
-			</exclusions>
-		</dependency>
-		<dependency>
-			<groupId>com.zaxxer</groupId>
-			<artifactId>HikariCP</artifactId>
-		</dependency> -->
-		<!-- HikariCP 连接池依赖，从父依赖获取额版本   END-->
-		
-		
+
 		<!-- Druid START -->
 		<dependency>
 			<groupId>mysql</groupId>
@@ -105,31 +100,22 @@
 		</dependency>
 		<dependency>
 			<groupId>com.alibaba</groupId>
-        	<artifactId>druid-spring-boot-starter</artifactId>
+			<artifactId>druid-spring-boot-starter</artifactId>
 			<version>1.1.10</version>
 		</dependency>
 		<!-- Druid END -->
-		<!-- spring boot 内置tomcat -->
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-tomcat</artifactId>
-			<scope>provided</scope>
-		</dependency>
 
-		<!--@ConfigurationProperties注解  START-->
+		<!--@ConfigurationProperties注解 START -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-configuration-processor</artifactId>
 			<optional>true</optional>
 		</dependency>
-		<!--@ConfigurationProperties注解  END-->
-		
-		
-		<dependency>
-			<groupId>commons-io</groupId>
-			<artifactId>commons-io</artifactId>
-			<version>2.4</version>
-		</dependency>
+		<!--@ConfigurationProperties注解 END -->
+
+
+		<!-- <dependency> <groupId>commons-io</groupId> <artifactId>commons-io</artifactId> 
+			<version>2.4</version> </dependency> -->
 		<dependency>
 			<groupId>com.alibaba</groupId>
 			<artifactId>fastjson</artifactId>
@@ -166,7 +152,7 @@
 			<version>0.9.0</version>
 		</dependency>
 
-		<!-- Swagger -->
+		<!-- Swagger START -->
 		<dependency>
 			<groupId>io.springfox</groupId>
 			<artifactId>springfox-swagger2</artifactId>
@@ -182,13 +168,13 @@
 			<artifactId>springfox-bean-validators</artifactId>
 			<version>2.8.0</version>
 		</dependency>
-
-		<!-- Redis -->
+		<!-- Swagger END -->
+		<!-- Redis START -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-redis</artifactId>
 		</dependency>
-
+		<!-- Redis END -->
 		<!-- 监控 -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -196,10 +182,8 @@
 		</dependency>
 
 		<!--liquibase依赖 -->
-		<!-- <dependency>
-			<groupId>org.liquibase</groupId>
-			<artifactId>liquibase-core</artifactId>
-		</dependency> -->
+		<!-- <dependency> <groupId>org.liquibase</groupId> <artifactId>liquibase-core</artifactId> 
+			</dependency> -->
 		<!--测试依赖 -->
 
 		<!-- RocketMq -->
@@ -208,12 +192,25 @@
 			<artifactId>rocketmq-client</artifactId>
 			<version>4.3.0</version>
 		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-log4j2</artifactId>
+		</dependency>
+		<dependency>  <!-- 加上这个才能辨认到log4j2.yml文件 -->
+			<groupId>com.fasterxml.jackson.dataformat</groupId>
+			<artifactId>jackson-dataformat-yaml</artifactId>
+		</dependency>
 	</dependencies>
 	<profiles>
 		<profile>
 			<id>dev</id>
 			<properties>
 				<profileActive>dev</profileActive>
+				<logPath>/data/log/dev/stone</logPath>
+				<logLevelConsole>INFO</logLevelConsole>
+				<logLevelAction>INFO</logLevelAction>
+				<logLevelRoot>INFO</logLevelRoot>
+				<logLevelSql>INFO</logLevelSql>
 			</properties>
 			<activation>
 				<activeByDefault>true</activeByDefault>
@@ -223,6 +220,11 @@
 			<id>test</id>
 			<properties>
 				<profileActive>test</profileActive>
+				<logPath>/data/log/test/stone</logPath>
+				<logLevelConsole>INFO</logLevelConsole>
+				<logLevelAction>INFO</logLevelAction>
+				<logLevelRoot>INFO</logLevelRoot>
+				<logLevelSql>INFO</logLevelSql>
 			</properties>
 			<activation>
 				<activeByDefault>false</activeByDefault>
