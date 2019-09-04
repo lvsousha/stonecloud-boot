@@ -4,22 +4,22 @@
 
 	<resultMap id="BaseResultMap" type="com.stone.model.AdminUser">
         <id column="id" property="id" />
-        <result column="userName" property="userName" />
+        <result column="user_name" property="userName" />
         <result column="password" property="password" />
-        <result column="createDate" property="createDate" />
-        <result column="updateDate" property="updateDate" />
-        <result column="applicationServer" property="applicationServer" />
+        <result column="create_date" property="createDate" />
+        <result column="update_date" property="updateDate" />
+        <result column="application_server" property="applicationServer" />
     </resultMap>
     
     <resultMap id="associationResultMap" type="com.stone.model.AdminUser">
         <id column="id" property="id" />
-        <result column="userName" property="userName" />
+        <result column="user_name" property="userName" />
         <result column="password" property="password" />
-        <result column="createDate" property="createDate" />
-        <result column="updateDate" property="updateDate" />
+        <result column="create_date" property="createDate" />
+        <result column="update_date" property="updateDate" />
         <association property="applicationServer" 
         	select="com.stone.mapper.ApplicationServerMapper.selectById"
-	    	column="applicationServer">
+	    	column="application_server">
 		</association>
     </resultMap>
 

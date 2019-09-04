@@ -1,8 +1,10 @@
 DataSource:
 	druid
-	监控地址：http://localhost:9080/stone/druid/index.html
+		监控地址：http://localhost:9080/stone/druid/index.html
 持久层框架：
 	mybatis
+		mybatis-plus
+		插件：MybatisPlusConfig
 日志：
 	log4j2
 Web启动：

@@ -3,9 +3,10 @@ package com.stone.config;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
+import com.stone.CompositePropertySourceFactory;
 
 @Configuration
-@PropertySource("classpath:config/${spring.profiles.active}/basicConfig.yml")
+@PropertySource(value = {"classpath:config/${spring.profiles.active}/basicConfig.yml"},factory = CompositePropertySourceFactory.class)
 @ConfigurationProperties(prefix="config.basic" )
 public class BasicConfigBean {
 

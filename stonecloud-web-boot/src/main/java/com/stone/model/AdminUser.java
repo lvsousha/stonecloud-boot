@@ -26,33 +26,38 @@ public class AdminUser implements Serializable{
 	@ApiModelProperty(value = "唯一标识", required = false)
 	@TableId(type = IdType.AUTO)
 	@Column(name = "id")
-	private Long id;							//唯一标识
+	private Long id;	
 	
 	
 	@ApiModelProperty(value = "用户名", required = false)
-	@Column(name = "userName")
-	private String userName;					//服务名称
+	private String userName;	
 	
 	
 	@ApiModelProperty(value = "密码", required = false)
-	@Column(name = "password")
-	private String password;					//协议
+	private String password;	
 	
 	
 	@ApiModelProperty(value = "服务器", required = false)
 //	@TableField(el = "applicationServer.id, jdbcType=BIGINT")
-	@Column(name = "applicationServer")
 	private Long applicationServer;
 //	private ApplicationServer applicationServer;//服务器
 	
 	
 	@ApiModelProperty(value = "创建日期", required = false)
-	@Column(name = "createDate")
-	private Date createDate;					//创建日期
+	private Date createDate;
 	
 	
 	@ApiModelProperty(value = "更新日期", required = false)
-	@Column(name = "updateDate")
-	private Date updateDate;					//更新日期
+	private Date updateDate;	
 	
+	
+	public static AdminUser build() {
+	  AdminUser model = new AdminUser();
+	  return model;
+	}
+	
+	public AdminUser buildTest() {
+	  this.setUserName("test");
+	  return this;
+	}
 }

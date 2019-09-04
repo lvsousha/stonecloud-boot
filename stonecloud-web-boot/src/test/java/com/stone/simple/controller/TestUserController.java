@@ -1,4 +1,4 @@
-package com.stone.controller;
+package com.stone.simple.controller;
 
 import org.junit.Before;
 import org.junit.Test;

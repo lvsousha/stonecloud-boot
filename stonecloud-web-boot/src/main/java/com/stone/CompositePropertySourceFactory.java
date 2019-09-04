@@ -1,4 +1,4 @@
-package com.stone.config;
+package com.stone;
 
 import java.io.IOException;
 import java.util.Optional;
