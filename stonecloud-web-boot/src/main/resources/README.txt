@@ -23,5 +23,8 @@ Actuator
 		configprops：描述配置属性(包含默认值)如何注入Bean
 		env：获取全部环境属性
 		httptrace：显示HTTP足迹，最近100个HTTP request/repsponse
-		
-		
+缓存
+	redis
+		redis.yml
+		RedisConfig		
+		RedisService
