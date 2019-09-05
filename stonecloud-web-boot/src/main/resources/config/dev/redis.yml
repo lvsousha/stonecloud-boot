@@ -13,10 +13,12 @@ spring:
   timeout: 3000
   jedis: 
    pool: 
-    maxActive: 8
+    maxTotal: 8
 # 连接池最大阻塞等待时间（使用负值表示没有限制）
-    max-wait: 10000ms
+    maxWait: 10000ms
 # 连接池中的最大空闲连接
-    max-idle: 8
+    maxIdle: 8
 # 连接池中的最小空闲连接
-    min-idle: 1
+    minIdle: 1
+#    当池内没有可用连接时，最大等待时间
+    maxWaitMillis: 10000

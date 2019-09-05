@@ -18,36 +18,36 @@ import org.springframework.data.redis.serializer.StringRedisSerializer;
 import com.stone.CompositePropertySourceFactory;
 import com.stone.service.RedisService;
 import com.stone.service.impl.RedisServiceImpl;
+import lombok.Data;
 import redis.clients.jedis.JedisPoolConfig;
 
 @Configuration
 @EnableCaching
 @PropertySource(value = {"classpath:config/${spring.profiles.active}/redis.yml"},factory = CompositePropertySourceFactory.class)
+@ConfigurationProperties(prefix = "spring.redis")
+@Data
 public class RedisConfig {
   
+  private Integer database;
+  private String host;
+  private Integer port;
+  private String password;
+  private String timeout;
   @Bean
-//  @ConfigurationProperties(prefix = "spring.redis.jedis.pool")
+  @ConfigurationProperties(prefix = "spring.redis.jedis.pool")
   public JedisPoolConfig getJedisPoolConfig(){
       JedisPoolConfig jedisPoolConfig = new JedisPoolConfig();
-      //其他属性可以自行添加
-    //最大连接数
-      jedisPoolConfig.setMaxTotal(100);
-      //最小空闲连接数
-      jedisPoolConfig.setMinIdle(20);
-      //当池内没有可用连接时，最大等待时间
-      jedisPoolConfig.setMaxWaitMillis(10000);
       return jedisPoolConfig;
   }
   
   @Bean
-  @ConfigurationProperties(prefix = "spring.redis")
   public RedisStandaloneConfiguration getRedisStandaloneConfiguration(){
     RedisStandaloneConfiguration redisStandaloneConfiguration = new RedisStandaloneConfiguration();
-    RedisPassword password = RedisPassword.of("libra@Bmsoft_V19");
-    redisStandaloneConfiguration.setDatabase(3);
-    redisStandaloneConfiguration.setPassword(password);
-    redisStandaloneConfiguration.setHostName("118.89.112.68");
-    redisStandaloneConfiguration.setPort(33000);
+    RedisPassword redisPassword = RedisPassword.of(password);
+    redisStandaloneConfiguration.setDatabase(database);
+    redisStandaloneConfiguration.setPassword(redisPassword);
+    redisStandaloneConfiguration.setHostName(host);
+    redisStandaloneConfiguration.setPort(port);
       return redisStandaloneConfiguration;
   }
   
