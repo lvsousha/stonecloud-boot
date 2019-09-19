@@ -7,6 +7,8 @@ DataSource:
 		插件：MybatisPlusConfig
 日志：
 	log4j2
+切面：
+	请求切面：HttpRequestLoggerAspect
 Web启动：
 	可以初始化数据库
 权限控制：(注释)

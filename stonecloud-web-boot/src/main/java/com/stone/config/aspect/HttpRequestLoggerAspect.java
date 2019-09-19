@@ -4,47 +4,42 @@ import java.lang.reflect.Method;
 import java.util.Arrays;
 import java.util.Enumeration;
 import java.util.Map;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.Signature;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.reflect.MethodSignature;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.core.LocalVariableTableParameterNameDiscoverer;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.multipart.MultipartFile;
-
 import com.alibaba.fastjson.JSONObject;
 import com.google.common.base.Joiner;
 import com.google.common.collect.Maps;
+import lombok.extern.slf4j.Slf4j;
 
 @Component
 @Aspect
+@Slf4j
 public class HttpRequestLoggerAspect {
-
-	private static final Logger LOGGER = LoggerFactory.getLogger(HttpRequestLoggerAspect.class);
 
 	@Around("@annotation(requestMapping)")
 	public Object disPlayRequestInfo(ProceedingJoinPoint point, RequestMapping requestMapping) throws Throwable {
-		return doLog(point, LOGGER);
+		return doLog(point);
 	}
 
 	private static final String CRLF = "\r\n";
 
-	protected Object doLog(ProceedingJoinPoint point, Logger logger) throws Throwable {
+	protected Object doLog(ProceedingJoinPoint point) throws Throwable {
 		String className = null;
 		String methodName = null;
 		Method method = null;
 		String paramLog = null;
 		try {
 			Signature signature = point.getSignature();
-			logger.info(signature.getClass().getName());
+			log.info(signature.getClass().getName());
 			Object[] args = point.getArgs();
 			MethodSignature methodSignature = null;
 			boolean hasResult = false;
@@ -60,11 +55,11 @@ public class HttpRequestLoggerAspect {
 			}
 
 			long startTime = System.currentTimeMillis();
-			RequestMethodInfo requestInfo = getRequestInfo(methodSignature, args, logger);
+			RequestMethodInfo requestInfo = getRequestInfo(methodSignature, args);
 
 			paramLog = getLogMessage(requestInfo);
 			if (requestInfo.isDoInfoLog()) {
-				logger.info(paramLog);
+				log.info(paramLog);
 			}
 
 			Object resultObject = null;
@@ -78,25 +73,25 @@ public class HttpRequestLoggerAspect {
 			long spendTime = endTime - startTime;
 			String timeMessage = className + "." + methodName + " spend time " + spendTime + " ms";
 			if (spendTime < 10) {
-				logger.debug(timeMessage);
+				log.debug(timeMessage);
 			} else if (spendTime < 50) {
-				logger.info(timeMessage);
+				log.info(timeMessage);
 			} else {
-				logger.error(timeMessage);
+				log.error(timeMessage);
 			}
-			// logger.info(className + "." + methodName + " return value:" +
+			// log.info(className + "." + methodName + " return value:" +
 			// JSONObject.toJSONString(result));
 			return resultObject;
 		} catch (Throwable e) {
 			if (paramLog != null) {
-				logger.error("执行如下操作失败，方法以及参数为：===============================");
-				logger.error(paramLog);
-				logger.error("具体错误如下：：===============================");
-				logger.error("========", e);
+				log.error("执行如下操作失败，方法以及参数为：===============================");
+				log.error(paramLog);
+				log.error("具体错误如下：：===============================");
+				log.error("========", e);
 			} else if (className != null && methodName != null) {
-				logger.error("Invoke method:" + className + "." + methodName + " error");
+				log.error("Invoke method:" + className + "." + methodName + " error");
 			} else {
-				logger.error("Invoke method error");
+				log.error("Invoke method error");
 			}
 			throw e;
 
@@ -136,7 +131,7 @@ public class HttpRequestLoggerAspect {
 		return sb.toString();
 	}
 
-	private RequestMethodInfo getRequestInfo(MethodSignature methodSignature, Object[] args, Logger logger) {
+	private RequestMethodInfo getRequestInfo(MethodSignature methodSignature, Object[] args) {
 		RequestMethodInfo requestInfo = new RequestMethodInfo();
 		Class<?>[] parameterTypes = methodSignature.getParameterTypes();
 		Method method = methodSignature.getMethod();
@@ -226,7 +221,7 @@ public class HttpRequestLoggerAspect {
 			return requestInfo;
 		} catch (Throwable t) {
 			throw new RuntimeException(
-					"logger " + className + "." + methodName + ";args:" + Arrays.toString(args) + "error", t);
+					"log " + className + "." + methodName + ";args:" + Arrays.toString(args) + "error", t);
 		}
 	}
 }

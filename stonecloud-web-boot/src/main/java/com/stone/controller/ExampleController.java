@@ -32,7 +32,7 @@ public class ExampleController {
 	public ModelAndView home() {
 		log.info("Home");
 		ModelAndView mav = new ModelAndView();
-		mav.setViewName("home");
+		mav.setViewName("index");
 		return mav;
 	}
 	
