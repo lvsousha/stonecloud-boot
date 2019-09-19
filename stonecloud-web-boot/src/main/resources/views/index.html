@@ -1,20 +1,74 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:th="http://www.thymeleaf.org"
-	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
-<head>
-<meta charset="utf-8" />
-<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>MES平台</title>
-<link th:href="@{bootstrap-3.3.7-dist/css/bootstrap.min.css}" rel="stylesheet" />
-<script th:src="@{bootstrap-3.3.7-dist/js/bootstrap.min.js}"></script>
-<script th:src="@{vue.js}"></script>
-</head>
-<body>
-<div id="app">
-  {{ message }}
-</div>
-<script th:src="@{app.js}"></script>
-</body>
+<html
+  xmlns="http://www.w3.org/1999/xhtml"
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
+>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>MES平台</title>
+    <link
+      th:href="@{bootstrap-3.3.7-dist/css/bootstrap.min.css}"
+      rel="stylesheet"
+    />
+    <script th:src="@{bootstrap-3.3.7-dist/js/bootstrap.min.js}"></script>
+    <script th:src="@{vue/vue.js}"></script>
+    <script th:src="@{vue/vue-resource.min.js}"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  </head>
+  <body>
+    <div id="app">
+      <button type="button" class="btn btn-default" v-on:click="start">
+        发起回避
+      </button>
+      <table class="table table-striped">
+        <caption>
+          条纹表格布局
+        </caption>
+        <thead>
+          <tr>
+            <th>流程</th>
+            <th>任务ID</th>
+            <th>任务名称</th>
+            <th>任务描述</th>
+            <th>操作</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="(task,i) in tasks">
+            <td>{{task.process}}</td>
+            <td>{{task.id}}</td>
+            <td>{{task.name}}</td>
+            <td>{{task.def}}</td>
+            <td>
+              <button
+                type="button"
+                class="btn btn-default"
+                v-on:click="audit(task.id, 'agree')"
+              >
+                同意
+              </button>
+              <button
+                type="button"
+                class="btn btn-default"
+                v-on:click="audit(task.id, 'disagree')"
+              >
+                不同意
+              </button>
+              <button
+                type="button"
+                class="btn btn-default"
+                v-on:click="audit(task.id, 'sendBack')"
+              >
+                退回
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <script th:src="@{app.js}"></script>
+  </body>
 </html>
