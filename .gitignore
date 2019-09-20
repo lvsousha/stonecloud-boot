@@ -2,3 +2,4 @@ stonecloud-web-boot/.classpath
 stonecloud-web-boot/.gitignore
 stonecloud-web-boot/.project
 stonecloud-web-boot/.settings/
+stonecloud-web-boot/.bpmn/src/main/resources/processes/avoidStaffProcess.bpmn2d

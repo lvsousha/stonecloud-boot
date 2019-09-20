@@ -1,74 +1,102 @@
 <!DOCTYPE html>
-<html
-  xmlns="http://www.w3.org/1999/xhtml"
-  xmlns:th="http://www.thymeleaf.org"
-  xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
->
-  <head>
-    <meta charset="utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>MES平台</title>
-    <link
-      th:href="@{bootstrap-3.3.7-dist/css/bootstrap.min.css}"
-      rel="stylesheet"
-    />
-    <script th:src="@{bootstrap-3.3.7-dist/js/bootstrap.min.js}"></script>
-    <script th:src="@{vue/vue.js}"></script>
-    <script th:src="@{vue/vue-resource.min.js}"></script>
-    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-  </head>
-  <body>
-    <div id="app">
-      <button type="button" class="btn btn-default" v-on:click="start">
-        发起回避
-      </button>
-      <table class="table table-striped">
-        <caption>
-          条纹表格布局
-        </caption>
-        <thead>
-          <tr>
-            <th>流程</th>
-            <th>任务ID</th>
-            <th>任务名称</th>
-            <th>任务描述</th>
-            <th>操作</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr v-for="(task,i) in tasks">
-            <td>{{task.process}}</td>
-            <td>{{task.id}}</td>
-            <td>{{task.name}}</td>
-            <td>{{task.def}}</td>
-            <td>
-              <button
-                type="button"
-                class="btn btn-default"
-                v-on:click="audit(task.id, 'agree')"
-              >
-                同意
-              </button>
-              <button
-                type="button"
-                class="btn btn-default"
-                v-on:click="audit(task.id, 'disagree')"
-              >
-                不同意
-              </button>
-              <button
-                type="button"
-                class="btn btn-default"
-                v-on:click="audit(task.id, 'sendBack')"
-              >
-                退回
-              </button>
-            </td>
-          </tr>
-        </tbody>
-      </table>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+  xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Flowable</title>
+  <script th:src="@{vue/vue.js}"></script>
+  <script th:src="@{vue/vue-resource.min.js}"></script>
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css" />
+  <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+  <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+  <div id="app">
+    <ul class="nav nav-tabs">
+      <li class="active">
+        <a href="#processInstance" data-toggle="tab">流程状态</a>
+      </li>
+      <li><a href="#toDoTasks" data-toggle="tab">待办任务</a></li>
+    </ul>
+
+    <div id="tabContent" class="tab-content">
+      <div class="tab-pane fade in active" id="processInstance">
+        <table class="table table-striped">
+          <caption>
+            <button type="button" class="btn btn-default" v-on:click="start">
+              发起回避
+            </button>
+            <button type="button" class="btn btn-default" v-on:click="showPng">
+              显示回避流程图
+            </button>
+          </caption>
+          <thead>
+            <tr>
+              <th>Id</th>
+              <th>名称</th>
+              <th>开始时间</th>
+              <th>结束时间</th>
+              <th>操作</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="(processInstance,i) in processInstances">
+              <td>{{ processInstance.id }}</td>
+              <td>{{ processInstance.name }}</td>
+              <td>{{ processInstance.startTime }}</td>
+              <td>{{ processInstance.endTime }}</td>
+              <td>
+                <button type="button" class="btn btn-primary" v-if="processInstance.hasFinished">
+                  完成
+                </button>
+                <button type="button" class="btn btn-danger" v-else>
+                  进行中
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="tab-pane fade" id="toDoTasks">
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th>流程</th>
+              <th>任务ID</th>
+              <th>任务名称</th>
+              <th>任务描述</th>
+              <th>操作</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="(task,i) in tasks">
+              <td>{{ task.process }}</td>
+              <td>{{ task.id }}</td>
+              <td>{{ task.name }}</td>
+              <td>{{ task.def }}</td>
+              <td>
+                <button type="button" class="btn btn-primary" v-on:click="audit(task.id, 'AGREE')">
+                  同意
+                </button>
+                <button type="button" class="btn btn-danger" v-on:click="audit(task.id, 'DISAGREE')">
+                  不同意
+                </button>
+                <button type="button" class="btn btn-warning" v-on:click="audit(task.id, 'SEND_BACK')">
+                  退回
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
-    <script th:src="@{app.js}"></script>
-  </body>
+  </div>
+  <script th:src="@{app.js}"></script>
+</body>
+
 </html>

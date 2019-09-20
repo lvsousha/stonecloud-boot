@@ -4,45 +4,45 @@
     <startEvent id="AVOID_ARBITRATOR_APPLY" name="申请"></startEvent>
     <userTask id="AVOID_ARBITRATOR_ASSISTANT_SUBMIT" name="助理审核" activiti:assignee="assistantId"></userTask>
     <sequenceFlow id="flow1" name="提交申请" sourceRef="AVOID_ARBITRATOR_APPLY" targetRef="AVOID_ARBITRATOR_ASSISTANT_SUBMIT"></sequenceFlow>
-    <userTask id="AVOID_ARBITRATOR_LEADER_AUDIT" name="部门负责人审核" activiti:candidateGroups="leader"></userTask>
+    <userTask id="AVOID_ARBITRATOR_LEADER_AUDIT" name="部门负责人审核1" activiti:candidateGroups="leader"></userTask>
     <sequenceFlow id="assistant_agree" name="助理同意" sourceRef="AVOID_ARBITRATOR_ASSISTANT_SUBMIT" targetRef="AVOID_ARBITRATOR_LEADER_AUDIT"></sequenceFlow>
     <userTask id="AVOID_ARBITRATOR_DEPUTY_SECRETARY_GENERAL_AUDIT" name="副秘书长审核" activiti:candidateGroups="deputySecretaryGeneral"></userTask>
     <sequenceFlow id="leader_agree" name="部门负责人同意" sourceRef="AVOID_ARBITRATOR_LEADER_AUDIT" targetRef="AVOID_ARBITRATOR_DEPUTY_SECRETARY_GENERAL_AUDIT">
-      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${operate=='agree'}]]></conditionExpression>
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${operate=='AGREE'}]]></conditionExpression>
     </sequenceFlow>
     <userTask id="AVOID_ARBITRATOR_SECRETARY_GENERAL_AUDIT" name="秘书长审核" activiti:candidateGroups="SecretaryGeneral"></userTask>
     <sequenceFlow id="deputy_secretary_general_agree" name="副秘书长同意" sourceRef="AVOID_ARBITRATOR_DEPUTY_SECRETARY_GENERAL_AUDIT" targetRef="AVOID_ARBITRATOR_SECRETARY_GENERAL_AUDIT">
-      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${operate=='agree'}]]></conditionExpression>
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${operate=='AGREE'}]]></conditionExpression>
     </sequenceFlow>
     <userTask id="AVOID_ARBITRATOR_ASSISTANT_SUBMIT_DECIDE_BOOK" name="助理提交决定书" activiti:assignee="assistantId"></userTask>
     <sequenceFlow id="secretary_general_agree_or_disagree" name="秘书长同意或不同意" sourceRef="AVOID_ARBITRATOR_SECRETARY_GENERAL_AUDIT" targetRef="AVOID_ARBITRATOR_ASSISTANT_SUBMIT_DECIDE_BOOK">
-      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${operate=='agree' or operate=='disagree'}]]></conditionExpression>
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${operate=='AGREE' or operate=='DISAGREE'}]]></conditionExpression>
     </sequenceFlow>
     <userTask id="AVOID_ARBITRATOR_LEADER_AUDIT_DECIDE_BOOK" name="部门负责人审核决定书" activiti:candidateGroups="leader"></userTask>
     <sequenceFlow id="assistant_agree_decide_book" name="助理同意决定书" sourceRef="AVOID_ARBITRATOR_ASSISTANT_SUBMIT_DECIDE_BOOK" targetRef="AVOID_ARBITRATOR_LEADER_AUDIT_DECIDE_BOOK">
-      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${operate=='agree'}]]></conditionExpression>
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${operate=='AGREE'}]]></conditionExpression>
     </sequenceFlow>
     <endEvent id="endevent1" name="End"></endEvent>
     <sequenceFlow id="leader_agree_decide_book" name="部门负责人同意决定书" sourceRef="AVOID_ARBITRATOR_LEADER_AUDIT_DECIDE_BOOK" targetRef="endevent1">
-      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${operate=='agree'}]]></conditionExpression>
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${operate=='AGREE'}]]></conditionExpression>
     </sequenceFlow>
     <sequenceFlow id="leader_send_back" name="部门负责人退回" sourceRef="AVOID_ARBITRATOR_LEADER_AUDIT" targetRef="AVOID_ARBITRATOR_ASSISTANT_SUBMIT">
-      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${operate=='sendBack'}]]></conditionExpression>
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${operate=='SEND_BACK'}]]></conditionExpression>
     </sequenceFlow>
     <sequenceFlow id="deputy_secretary_general_send_back" name="副秘书长退回" sourceRef="AVOID_ARBITRATOR_DEPUTY_SECRETARY_GENERAL_AUDIT" targetRef="AVOID_ARBITRATOR_ASSISTANT_SUBMIT">
-      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${operate=='sendBack'}]]></conditionExpression>
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${operate=='SEND_BACK'}]]></conditionExpression>
     </sequenceFlow>
     <sequenceFlow id="secretary_general_send_back" name="秘书长退回" sourceRef="AVOID_ARBITRATOR_SECRETARY_GENERAL_AUDIT" targetRef="AVOID_ARBITRATOR_ASSISTANT_SUBMIT">
-      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${operate=='sendBack'}]]></conditionExpression>
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${operate=='SEND_BACK'}]]></conditionExpression>
     </sequenceFlow>
     <sequenceFlow id="leader_disagree" name="部门负责人不同意" sourceRef="AVOID_ARBITRATOR_LEADER_AUDIT" targetRef="AVOID_ARBITRATOR_ASSISTANT_SUBMIT_DECIDE_BOOK">
-      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${operate=='disagree'}]]></conditionExpression>
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${operate=='DISAGREE'}]]></conditionExpression>
     </sequenceFlow>
     <sequenceFlow id="deputy_secretary_general_disagree" name="副秘书长不同意" sourceRef="AVOID_ARBITRATOR_DEPUTY_SECRETARY_GENERAL_AUDIT" targetRef="AVOID_ARBITRATOR_ASSISTANT_SUBMIT_DECIDE_BOOK">
-      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${operate=='disagree'}]]></conditionExpression>
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${operate=='DISAGREE'}]]></conditionExpression>
     </sequenceFlow>
     <sequenceFlow id="leader_send_back_decide_book" name="部门负责人退回决定书" sourceRef="AVOID_ARBITRATOR_LEADER_AUDIT_DECIDE_BOOK" targetRef="AVOID_ARBITRATOR_ASSISTANT_SUBMIT_DECIDE_BOOK">
-      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${operate=='sendBack'}]]></conditionExpression>
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${operate=='SEND_BACK'}]]></conditionExpression>
     </sequenceFlow>
   </process>
   <bpmndi:BPMNDiagram id="BPMNDiagram_AVOID_ARBITRATOR">
@@ -91,7 +91,7 @@
         <omgdi:waypoint x="322.0" y="367.0"></omgdi:waypoint>
         <omgdi:waypoint x="420.0" y="367.0"></omgdi:waypoint>
         <bpmndi:BPMNLabel>
-          <omgdc:Bounds height="14.0" width="84.0" x="322.0" y="255.0"></omgdc:Bounds>
+          <omgdc:Bounds height="14.0" width="100.0" x="322.0" y="255.0"></omgdc:Bounds>
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="deputy_secretary_general_agree" id="BPMNEdge_deputy_secretary_general_agree">
@@ -99,7 +99,7 @@
         <omgdi:waypoint x="472.0" y="487.0"></omgdi:waypoint>
         <omgdi:waypoint x="570.0" y="487.0"></omgdi:waypoint>
         <bpmndi:BPMNLabel>
-          <omgdc:Bounds height="14.0" width="72.0" x="472.0" y="395.0"></omgdc:Bounds>
+          <omgdc:Bounds height="14.0" width="100.0" x="472.0" y="395.0"></omgdc:Bounds>
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="secretary_general_agree_or_disagree" id="BPMNEdge_secretary_general_agree_or_disagree">
@@ -115,7 +115,7 @@
         <omgdi:waypoint x="803.0" y="235.0"></omgdi:waypoint>
         <omgdi:waypoint x="930.0" y="235.0"></omgdi:waypoint>
         <bpmndi:BPMNLabel>
-          <omgdc:Bounds height="14.0" width="84.0" x="742.0" y="155.0"></omgdc:Bounds>
+          <omgdc:Bounds height="14.0" width="100.0" x="742.0" y="155.0"></omgdc:Bounds>
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="leader_agree_decide_book" id="BPMNEdge_leader_agree_decide_book">
@@ -130,7 +130,7 @@
         <omgdi:waypoint x="322.0" y="127.0"></omgdi:waypoint>
         <omgdi:waypoint x="235.0" y="127.0"></omgdi:waypoint>
         <bpmndi:BPMNLabel>
-          <omgdc:Bounds height="14.0" width="84.0" x="322.0" y="155.0"></omgdc:Bounds>
+          <omgdc:Bounds height="14.0" width="100.0" x="322.0" y="155.0"></omgdc:Bounds>
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="deputy_secretary_general_send_back" id="BPMNEdge_deputy_secretary_general_send_back">
@@ -138,7 +138,7 @@
         <omgdi:waypoint x="472.0" y="127.0"></omgdi:waypoint>
         <omgdi:waypoint x="235.0" y="127.0"></omgdi:waypoint>
         <bpmndi:BPMNLabel>
-          <omgdc:Bounds height="14.0" width="72.0" x="460.0" y="291.0"></omgdc:Bounds>
+          <omgdc:Bounds height="14.0" width="100.0" x="460.0" y="291.0"></omgdc:Bounds>
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="secretary_general_send_back" id="BPMNEdge_secretary_general_send_back">
@@ -146,7 +146,7 @@
         <omgdi:waypoint x="622.0" y="127.0"></omgdi:waypoint>
         <omgdi:waypoint x="235.0" y="127.0"></omgdi:waypoint>
         <bpmndi:BPMNLabel>
-          <omgdc:Bounds height="14.0" width="60.0" x="625.0" y="421.0"></omgdc:Bounds>
+          <omgdc:Bounds height="14.0" width="100.0" x="625.0" y="421.0"></omgdc:Bounds>
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="leader_disagree" id="BPMNEdge_leader_disagree">
@@ -154,7 +154,7 @@
         <omgdi:waypoint x="742.0" y="227.0"></omgdi:waypoint>
         <omgdi:waypoint x="742.0" y="155.0"></omgdi:waypoint>
         <bpmndi:BPMNLabel>
-          <omgdc:Bounds height="14.0" width="96.0" x="375.0" y="227.0"></omgdc:Bounds>
+          <omgdc:Bounds height="42.0" width="100.0" x="375.0" y="227.0"></omgdc:Bounds>
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="deputy_secretary_general_disagree" id="BPMNEdge_deputy_secretary_general_disagree">
@@ -162,7 +162,7 @@
         <omgdi:waypoint x="742.0" y="367.0"></omgdi:waypoint>
         <omgdi:waypoint x="742.0" y="155.0"></omgdi:waypoint>
         <bpmndi:BPMNLabel>
-          <omgdc:Bounds height="14.0" width="84.0" x="525.0" y="367.0"></omgdc:Bounds>
+          <omgdc:Bounds height="14.0" width="100.0" x="525.0" y="367.0"></omgdc:Bounds>
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="leader_send_back_decide_book" id="BPMNEdge_leader_send_back_decide_book">

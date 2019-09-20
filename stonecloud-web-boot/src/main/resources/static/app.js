@@ -7,24 +7,14 @@ var app = new Vue({
     }, {
       id: "id2",
       name: "name2"
-    }]
+    }],
+    processInstances:[]
   },
   methods: {
-    test: function () {
-      axios.post('process/test', {
-        id: 'Fred'
-      })
-      .then(function (response) {
-        console.log(response);
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
-    },
     start: function () {
       axios.post('process/start')
       .then(function (response) {
-        list();
+        app.list();;
       })
       .catch(function (error) {
         console.log(error);
@@ -50,7 +40,20 @@ var app = new Vue({
       .catch(function (error) {
         console.log(error);
       });
+    },
+    showPng: function(){
+      window.open("process/showPng");
+    },
+    history: function () {
+      axios.post('process/history')
+      .then(function (response) {
+        app.processInstances = response.data;
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
     }
   }
 });
 app.list();
+app.history();

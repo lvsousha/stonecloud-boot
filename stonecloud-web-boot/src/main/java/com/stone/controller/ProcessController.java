@@ -3,9 +3,11 @@ package com.stone.controller;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import org.flowable.engine.HistoryService;
 import org.flowable.engine.RepositoryService;
 import org.flowable.engine.RuntimeService;
 import org.flowable.engine.TaskService;
+import org.flowable.engine.history.HistoricProcessInstance;
 import org.flowable.engine.repository.ProcessDefinition;
 import org.flowable.engine.runtime.ProcessInstance;
 import org.flowable.task.api.Task;
@@ -26,13 +28,9 @@ public class ProcessController {
     @Autowired
     private RepositoryService repositoryService;
     @Autowired
+    private HistoryService historyService;
+    @Autowired
     private TaskService taskService;
-
-    @RequestMapping(value = "test")
-    @ResponseBody
-    public void test(@RequestBody JSONObject param) {
-      log.info("启动回避仲裁员" + param.getString("id"));
-    }
 
     @RequestMapping(value = "start")
     @ResponseBody
@@ -70,6 +68,35 @@ public class ProcessController {
       taskService.setVariableLocal(taskId, "operateType", operate);
       taskService.setVariable(taskId, "operate", operate);
       taskService.complete(taskId);
+      
+      
+      
+      
+      
+      
+      
         return "成功";
+    }
+    
+    @RequestMapping(value = "history")
+    @ResponseBody
+    public List<JSONObject> history() {
+      log.info("历史查询");
+      List<HistoricProcessInstance> list = historyService.createHistoricProcessInstanceQuery().list();
+      List<JSONObject> result = new ArrayList<>();
+      for(HistoricProcessInstance instance : list) {
+        ProcessDefinition pd = repositoryService.createProcessDefinitionQuery().deploymentId(instance.getDeploymentId()).singleResult();
+        JSONObject model = new JSONObject();
+        model.put("id", instance.getId());
+        model.put("name", pd.getName());
+        model.put("startTime", instance.getStartTime());
+        model.put("hasFinished", false);
+        if(instance.getEndTime() != null) {
+          model.put("hasFinished", true);
+          model.put("endTime", instance.getEndTime());
+        }
+        result.add(model);
+      }
+      return result;
     }
 }

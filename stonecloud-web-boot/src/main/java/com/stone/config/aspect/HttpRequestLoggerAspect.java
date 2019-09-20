@@ -53,7 +53,6 @@ public class HttpRequestLoggerAspect {
 			} else {
 				return point.proceed();
 			}
-
 			long startTime = System.currentTimeMillis();
 			RequestMethodInfo requestInfo = getRequestInfo(methodSignature, args);
 
@@ -73,7 +72,7 @@ public class HttpRequestLoggerAspect {
 			long spendTime = endTime - startTime;
 			String timeMessage = className + "." + methodName + " spend time " + spendTime + " ms";
 			if (spendTime < 10) {
-				log.debug(timeMessage);
+				log.info(timeMessage);
 			} else if (spendTime < 50) {
 				log.info(timeMessage);
 			} else {
