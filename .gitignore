@@ -3,3 +3,5 @@ stonecloud-web-boot/.gitignore
 stonecloud-web-boot/.project
 stonecloud-web-boot/.settings/
 stonecloud-web-boot/.bpmn/src/main/resources/processes/avoidStaffProcess.bpmn2d
+stonecloud-web-boot/.idea/
+stonecloud-web-boot/stonecloud-web-boot.iml
