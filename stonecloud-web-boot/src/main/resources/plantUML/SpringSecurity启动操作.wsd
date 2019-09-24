@@ -1,0 +1,26 @@
+@startuml springSecurity
+autonumber 3
+WebSecurityConfiguration -> WebSecurity: setFilterChainProxySecurityConfigurer()
+WebSecurity --> AbstractConfiguredSecurityBuilder: 
+AbstractConfiguredSecurityBuilder -> AbstractConfiguredSecurityBuilder: apply()
+AbstractConfiguredSecurityBuilder -> AbstractConfiguredSecurityBuilder: add()
+AbstractConfiguredSecurityBuilder --> WebSecurity: 
+WebSecurity -> WebSecurityConfiguration: this.webSecurity.configurers.add()
+WebSecurityConfiguration -> WebSecurityConfiguration: this.webSecurityConfigurers = webSecurityConfigurers
+autonumber 11
+WebSecurityConfiguration -> WebSecurity: springSecurityFilterChain()
+WebSecurity --> AbstractSecurityBuilder: 
+AbstractSecurityBuilder -> AbstractSecurityBuilder: build()
+AbstractSecurityBuilder --> AbstractConfiguredSecurityBuilder:
+AbstractConfiguredSecurityBuilder -> AbstractConfiguredSecurityBuilder: doBuild()
+AbstractConfiguredSecurityBuilder -> WebSecurity: init()
+WebSecurity -> WebSecurity: init(),this.securityFilterChainBuilders.(HttpSecurity)
+AbstractConfiguredSecurityBuilder -> WebSecurity: configure()
+WebSecurity -> WebSecurity: configure()
+AbstractConfiguredSecurityBuilder --> WebSecurity:
+WebSecurity -> WebSecurity: performBuild()
+WebSecurity --> AbstractConfiguredSecurityBuilder: FilterChainProxy
+AbstractConfiguredSecurityBuilder --> AbstractSecurityBuilder: FilterChainProxy
+AbstractSecurityBuilder --> WebSecurity: FilterChainProxy
+WebSecurity -> WebSecurityConfiguration: FilterChainProxy
+@enduml

@@ -27,13 +27,16 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
   @Override
   protected void configure(HttpSecurity http) throws Exception {
-    http.formLogin().loginPage("/authentication/require") // 指定没有认证时跳转到的认证url
-        .loginProcessingUrl("/authentication/form") // 提交登录表单的url
-        .and()
-          .authorizeRequests()
+    http
+        .formLogin()
+          .loginPage("/authentication/require") // 指定没有认证时跳转到的认证url
+          .loginProcessingUrl("/authentication/form") // 提交登录表单的url
+          .and()
+        .authorizeRequests()
           .antMatchers("/authentication/require").permitAll()
           .anyRequest().authenticated()
-        .and().csrf().disable();
+          .and()
+        .csrf().disable();
   }
 
   @Bean

@@ -1,0 +1,35 @@
+@startuml springSecurity调用
+autonumber 1
+WebAsyncManagerIntegrationFilter -> WebAsyncManagerIntegrationFilter: 
+note right: 提供SecurityContext和spring Web的集成
+WebAsyncManagerIntegrationFilter -> SecurityContextPersistenceFilter: chain.doFilter()
+SecurityContextPersistenceFilter -> SecurityContextPersistenceFilter: 
+note right: 加载SecurityContext对象，然后加载到SecurityContextHolder
+SecurityContextPersistenceFilter -> HeaderWriterFilter: chain.doFilter()
+HeaderWriterFilter -> HeaderWriterFilter: 
+note right: 对响应信息的请求头添加一些配置
+HeaderWriterFilter -> CsrfFilter: chain.doFilter()
+CsrfFilter -> CsrfFilter: 
+note right: 防止跨站请求伪造
+CsrfFilter -> LogoutFilter: chain.doFilter()
+LogoutFilter -> LogoutFilter: 
+note right: 对登出操作的处理
+LogoutFilter -> UsernamePasswordAuthenticationFilter: chain.doFilter()
+UsernamePasswordAuthenticationFilter -> UsernamePasswordAuthenticationFilter: 
+note right: 用户名密码登录认证
+UsernamePasswordAuthenticationFilter -> RequestCacheAwareFilter: chain.doFilter()
+RequestCacheAwareFilter -> RequestCacheAwareFilter: 
+note right: 用户登录成功后，重新恢复因为登录被打断的请求
+RequestCacheAwareFilter -> SecurityContextHolderAwareRequestFilter: chain.doFilter()
+SecurityContextHolderAwareRequestFilter -> SecurityContextHolderAwareRequestFilter: 
+note right: 填充ServletRequest
+SecurityContextHolderAwareRequestFilter -> AnonymousAuthenticationFilter: chain.doFilter()
+AnonymousAuthenticationFilter -> AnonymousAuthenticationFilter: 
+note right: 加载SecurityContext对象，然后加载到SecurityContextHolder
+AnonymousAuthenticationFilter -> SessionManagementFilter: chain.doFilter()
+SessionManagementFilter -> SessionManagementFilter: 
+note right: 会话的管理机制
+SessionManagementFilter -> ExceptionTranslationFilter: chain.doFilter()
+ExceptionTranslationFilter -> ExceptionTranslationFilter: 
+note right: 对于任意的AccessDeniedException类型的异常和AuthenticationException类型异常的处理
+@enduml
