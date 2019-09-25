@@ -1,0 +1,44 @@
+@startuml springSecurity调用
+autonumber 1
+WebAsyncManagerIntegrationFilter -> WebAsyncManagerIntegrationFilter: 
+note right: 提供SecurityContext和spring Web的集成
+WebAsyncManagerIntegrationFilter -> SecurityContextPersistenceFilter: chain.doFilter()
+SecurityContextPersistenceFilter -> SecurityContextPersistenceFilter: 
+note right: SecurityContextHolder.setContext(SecurityContext)
+SecurityContextPersistenceFilter -> HeaderWriterFilter: chain.doFilter()
+HeaderWriterFilter -> HeaderWriterFilter: 
+note right: 对响应信息的请求头添加一些配置
+HeaderWriterFilter -> LogoutFilter: chain.doFilter()
+LogoutFilter -> LogoutFilter: 
+note right: 对登出操作的处理
+
+
+
+LogoutFilter -> AbstractAuthenticationProcessingFilter: chain.doFilter()
+AbstractAuthenticationProcessingFilter --> UsernamePasswordAuthenticationFilter: doFileter()
+UsernamePasswordAuthenticationFilter -> UsernamePasswordAuthenticationFilter: attemptAuthentication(HttpServletRequest, HttpServletResponse)
+UsernamePasswordAuthenticationFilter -> UsernamePasswordAuthenticationFilter: setDetails(HttpServletRequest, UsernamePasswordAuthenticationToken)
+UsernamePasswordAuthenticationFilter -> ProviderManager: getAuthenticationManager()
+ProviderManager -> ProviderManager: authenticate(Authentication)
+ProviderManager -> AbstractUserDetailsAuthenticationProvider: getProviders()
+AbstractUserDetailsAuthenticationProvider -> AbstractUserDetailsAuthenticationProvider: authenticate(Authentication)
+AbstractUserDetailsAuthenticationProvider --> DaoAuthenticationProvider
+DaoAuthenticationProvider -> DaoAuthenticationProvider: retrieveUser(username, UsernamePasswordAuthenticationToken)
+DaoAuthenticationProvider -> UserDetailsService: getUserDetailsService()
+UserDetailsService -> UserDetailsService: loadUserByUsername(username)
+UserDetailsService -> DaoAuthenticationProvider: UserDetails
+DaoAuthenticationProvider --> AbstractUserDetailsAuthenticationProvider: UserDetails
+AbstractUserDetailsAuthenticationProvider -> AbstractUserDetailsAuthenticationProvider: createSuccessAuthentication()
+AbstractUserDetailsAuthenticationProvider -> ProviderManager: UsernamePasswordAuthenticationToken
+ProviderManager -> UsernamePasswordAuthenticationFilter: UsernamePasswordAuthenticationToken
+UsernamePasswordAuthenticationFilter --> AbstractAuthenticationProcessingFilter: UsernamePasswordAuthenticationToken
+AbstractAuthenticationProcessingFilter --> SessionAuthenticationStrategy
+SessionAuthenticationStrategy -> SessionAuthenticationStrategy: onAuthentication()
+SessionAuthenticationStrategy --> AbstractAuthenticationProcessingFilter
+AbstractAuthenticationProcessingFilter -> AbstractAuthenticationProcessingFilter: successfulAuthentication()
+note right: SecurityContextHolder.getContext().setAuthentication()
+AbstractAuthenticationProcessingFilter -> LogoutFilter
+LogoutFilter -> HeaderWriterFilter
+HeaderWriterFilter -> SecurityContextPersistenceFilter
+SecurityContextPersistenceFilter -> WebAsyncManagerIntegrationFilter
+@enduml

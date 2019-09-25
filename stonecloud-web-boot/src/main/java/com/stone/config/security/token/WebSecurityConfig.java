@@ -6,17 +6,22 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
+import javax.annotation.Resource;
 import java.util.Arrays;
 
 @Configuration
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
-
+  @Resource
+  private JWTAuthenticationFilter jwtAuthenticationFilter;
+  @Resource
+  private JWTAuthenticationProvider jwtAuthenticationProvider;
   @Override
   public void configure(WebSecurity web) throws Exception {
 //    web.ignoring().antMatchers("/auth/**", "/api1/**", "/video/jump/**", "/video/show/**",
@@ -27,16 +32,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
   @Override
   protected void configure(HttpSecurity http) throws Exception {
-    http
-        .formLogin()
-          .loginPage("/authentication/require") // 指定没有认证时跳转到的认证url
-          .loginProcessingUrl("/authentication/form") // 提交登录表单的url
-          .and()
-        .authorizeRequests()
-          .antMatchers("/authentication/require").permitAll()
-          .anyRequest().authenticated()
-          .and()
-        .csrf().disable();
+    http.csrf().disable().cors().and().exceptionHandling().and()
+    .addFilterAfter(jwtAuthenticationFilter, BasicAuthenticationFilter.class)
+    .authenticationProvider(jwtAuthenticationProvider).authorizeRequests()
+    .anyRequest().authenticated();
   }
 
   @Bean
