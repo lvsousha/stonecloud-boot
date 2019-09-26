@@ -1,5 +1,8 @@
 package com.stone.config.security;
 
+import java.util.Arrays;
+import javax.annotation.Resource;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -10,9 +13,8 @@ import org.springframework.security.web.authentication.www.BasicAuthenticationFi
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
-
-import javax.annotation.Resource;
-import java.util.Arrays;
+import com.stone.config.SwitchControl;
+import com.stone.config.SwitchControlEnum;
 
 @Configuration
 @EnableWebSecurity
@@ -22,10 +24,15 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
   private JWTAuthenticationFilter jwtAuthenticationFilter;
   @Resource
   private JWTAuthenticationProvider jwtAuthenticationProvider;
+  @Autowired
+  private SwitchControl switchControl;
   @Override
   public void configure(WebSecurity web) throws Exception {
-//    web.ignoring().antMatchers("/swagger-ui.html", "/webjars/**", "/swagger-resources/**", "/v2/**");
-    web.ignoring().anyRequest();
+    if (SwitchControlEnum.ON.name().equals(switchControl.getSpringSecurity())) {
+      web.ignoring().antMatchers("/swagger-ui.html", "/webjars/**", "/swagger-resources/**", "/v2/**");
+    } else {
+      web.ignoring().anyRequest();
+    }
     
   }
 
