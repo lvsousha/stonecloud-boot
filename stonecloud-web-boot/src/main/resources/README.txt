@@ -19,6 +19,9 @@ Web启动：
 	BasicConfigBean
 消息中间件
 	rocketmq
+工作流
+	flowable
+	classpath:process/
 Actuator
 	访问地址：http://localhost:9088/monitor/actuator/
 		beans：描述应用程序上下文里全部的 Bean，以及它们的关系

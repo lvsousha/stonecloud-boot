@@ -1,4 +1,4 @@
-package com.stone.config.security.token;
+package com.stone.config.security;
 
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.core.Authentication;

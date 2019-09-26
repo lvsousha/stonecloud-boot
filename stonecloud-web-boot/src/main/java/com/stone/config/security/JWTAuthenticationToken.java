@@ -1,4 +1,4 @@
-package com.stone.config.security.token;
+package com.stone.config.security;
 
 import java.util.Collection;
 import org.springframework.security.authentication.AbstractAuthenticationToken;

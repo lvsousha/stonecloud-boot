@@ -17,7 +17,7 @@ import tk.mybatis.spring.annotation.MapperScan;
 @EnableSwagger2
 @MapperScan("com.stone.mapper")
 @EnableTransactionManagement
-@PropertySource(value = {"classpath:config/${spring.profiles.active}/processes.yml"},
+@PropertySource(value = {"classpath:config/${spring.profiles.active}/flowable.yml"},
     factory = CompositePropertySourceFactory.class)
 @Slf4j
 public class App {

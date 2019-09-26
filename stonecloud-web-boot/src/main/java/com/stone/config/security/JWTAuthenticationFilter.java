@@ -1,4 +1,4 @@
-package com.stone.config.security.token;
+package com.stone.config.security;
 
 import java.io.IOException;
 import javax.servlet.FilterChain;

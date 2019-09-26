@@ -1,4 +1,4 @@
-package com.stone.config.security.token;
+package com.stone.config.security;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -24,10 +24,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
   private JWTAuthenticationProvider jwtAuthenticationProvider;
   @Override
   public void configure(WebSecurity web) throws Exception {
-//    web.ignoring().antMatchers("/auth/**", "/api1/**", "/video/jump/**", "/video/show/**",
-//        "/testWebSocket/**", "/resources/static/**", "/accessMeeting/**", "/download*",
-//        "/sign/jump/**", "/TAk5by24Yw.txt", "/video/saveVideo*", "/swagger-ui.html", "/webjars/**",
-//        "/swagger-resources/**", "/v2/**");
+//    web.ignoring().antMatchers("/swagger-ui.html", "/webjars/**", "/swagger-resources/**", "/v2/**");
+    web.ignoring().anyRequest();
+    
   }
 
   @Override
