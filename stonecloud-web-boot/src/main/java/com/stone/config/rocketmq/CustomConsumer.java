@@ -9,63 +9,71 @@ import org.apache.rocketmq.client.consumer.listener.MessageListenerConcurrently;
 import org.apache.rocketmq.client.exception.MQClientException;
 import org.apache.rocketmq.common.message.MessageExt;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationListener;
-import org.springframework.context.event.ContextRefreshedEvent;
+import org.springframework.boot.CommandLineRunner;
+import org.springframework.context.annotation.Configuration;
+import com.stone.config.SwitchControl;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
-public class CustomConsumer implements ApplicationListener<ContextRefreshedEvent>{
+@Configuration
+public class CustomConsumer implements CommandLineRunner {
 
-  
+
   @Autowired
   private ConsumerConfig consumerConfig;
-  
-  public void onApplicationEvent(ContextRefreshedEvent arg0) {
-    try {
-        listener("t_TopicTest", "Tag1");
-    } catch (MQClientException e) {
-        log.error("消费者监听器启动失败", e);
+  @Autowired
+  private SwitchControl switchControl;
+
+  public void run(String... args) throws Exception {
+    if (!switchControl.getRocketMq()) {
+      return;
     }
-    
-}
+    try {
+      listener("Test", "Tag1");
+    } catch (MQClientException e) {
+      log.error("消费者监听器启动失败", e);
+    }
+
+  }
 
   // 开启消费者监听服务
   public void listener(String topic, String tag) throws MQClientException {
-      log.info("开启" + topic + ":" + tag + "消费者-------------------");
-      log.info(consumerConfig.toString());
+    log.info("开启" + topic + ":" + tag + "消费者-------------------");
+    log.info(consumerConfig.toString());
 
-      DefaultMQPushConsumer consumer = new DefaultMQPushConsumer(consumerConfig.getGroupName());
+    DefaultMQPushConsumer consumer = new DefaultMQPushConsumer(consumerConfig.getGroupName());
 
-      consumer.setNamesrvAddr(consumerConfig.getNamesrvAddr());
+    consumer.setNamesrvAddr(consumerConfig.getNamesrvAddr());
 
-      consumer.subscribe(topic, tag);
+    consumer.subscribe(topic, "*");
+    // 开启内部类实现监听
+    consumer.registerMessageListener(new MessageListenerConcurrently() {
+      @Override
+      public ConsumeConcurrentlyStatus consumeMessage(List<MessageExt> msgs,
+          ConsumeConcurrentlyContext context) {
+        return dealBody(msgs);
+      }
+    });
 
-      // 开启内部类实现监听
-      consumer.registerMessageListener(new MessageListenerConcurrently() {
-          @Override
-          public ConsumeConcurrentlyStatus consumeMessage(List<MessageExt> msgs, ConsumeConcurrentlyContext context) {
-              return dealBody(msgs);
-          }
-      });
+    consumer.start();
 
-      consumer.start();
-
-      log.info("rocketmq启动成功---------------------------------------");
+    log.info("rocketmq启动成功---------------------------------------");
 
   }
-  
-  public ConsumeConcurrentlyStatus dealBody(List<MessageExt> msgs)  {
+
+  public ConsumeConcurrentlyStatus dealBody(List<MessageExt> msgs) {
     int num = 1;
     log.info("进入");
-    for(MessageExt msg : msgs) {
-        log.info("第" + num + "次消息");
-        try {
-            String msgStr = new String(msg.getBody(), "utf-8");
-            log.info(msgStr);
-        } catch (UnsupportedEncodingException e) {
-            log.error("body转字符串解析失败");
-        }
+    for (MessageExt msg : msgs) {
+      log.info("第" + num + "次消息");
+      try {
+        String msgStr = new String(msg.getBody(), "utf-8");
+        log.info(msgStr);
+      } catch (UnsupportedEncodingException e) {
+        log.error("body转字符串解析失败");
+      }
     }
     return ConsumeConcurrentlyStatus.CONSUME_SUCCESS;
-}
+  }
+
 }

@@ -19,7 +19,7 @@ public class SimpleTest {
     
     @Test
     public void testBasicConfigBean() {
-    	log.info(switchControl.getRocketMq());
+    	log.info(switchControl.getRocketMq().toString());
     }  
     
 }

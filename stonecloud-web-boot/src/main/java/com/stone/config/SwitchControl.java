@@ -12,8 +12,8 @@ import lombok.Data;
 @ConfigurationProperties(prefix="switch" )
 public class SwitchControl {
 
-	private String rocketMq;
+	private Boolean rocketMq;
 	
-	private String springSecurity;
+	private Boolean springSecurity;
 	
 }

@@ -1,10 +1,10 @@
 rocketmq: 
   # 生产者配置
   producer: 
-    groupName: ${spring.application.name}
+    groupName: stone
     namesrvAddr: 127.0.0.1:9876
     default: false
   # 消费者配置
   consumer: 
-    groupName: ${spring.application.name}
+    groupName: stone
     namesrvAddr: 127.0.0.1:9876

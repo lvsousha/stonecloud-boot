@@ -14,29 +14,29 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @Data
 @Configuration
-@PropertySource(value = {"classpath:config/${spring.profiles.active}/rocketMQ.yml"},
+@PropertySource(
+    value = {"classpath:config/${spring.profiles.active}/rocketMQ.yml",
+        "classpath:config/${spring.profiles.active}/switchControl.yml"},
     factory = CompositePropertySourceFactory.class)
 public class RocketMQConfig {
 
-
+  @Bean
+  @ConfigurationProperties(prefix = "rocketmq.consumer")
+  public ConsumerConfig consumerConfig() {
+    ConsumerConfig config = new ConsumerConfig();
+    return config;
+  }
   @Bean
   @ConfigurationProperties(prefix = "rocketmq.producer")
-  public ProducerConfig getProducerConfig() {
+  public ProducerConfig producerConfig() {
     ProducerConfig config = new ProducerConfig();
     return config;
   }
 
   @Bean
-  @ConfigurationProperties(prefix = "rocketmq.consumer")
-  public ConsumerConfig getConsumerConfig() {
-    ConsumerConfig config = new ConsumerConfig();
-    return config;
-  }
-
-  @Bean
-  @ConditionalOnProperty(prefix = "rocketmq.producer", value = "default", havingValue = "true")
+  @ConditionalOnProperty(name = "switch.rocketMq", havingValue = "true")
   public DefaultMQProducer defaultProducer() throws MQClientException {
-    ProducerConfig producerConfigure = getProducerConfig();
+    ProducerConfig producerConfigure = producerConfig();
     log.info(producerConfigure.toString());
     log.info("defaultProducer 正在创建---------------------------------------");
     DefaultMQProducer producer = new DefaultMQProducer(producerConfigure.getGroupName());

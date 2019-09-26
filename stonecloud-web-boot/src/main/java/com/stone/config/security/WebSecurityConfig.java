@@ -14,7 +14,6 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import com.stone.config.SwitchControl;
-import com.stone.config.SwitchControlEnum;
 
 @Configuration
 @EnableWebSecurity
@@ -28,7 +27,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
   private SwitchControl switchControl;
   @Override
   public void configure(WebSecurity web) throws Exception {
-    if (SwitchControlEnum.ON.name().equals(switchControl.getSpringSecurity())) {
+    if (switchControl.getSpringSecurity()) {
       web.ignoring().antMatchers("/swagger-ui.html", "/webjars/**", "/swagger-resources/**", "/v2/**");
     } else {
       web.ignoring().anyRequest();
