@@ -10,15 +10,21 @@ import org.apache.rocketmq.common.message.MessageExt;
 
 public class SimpleConsumer {
   public static void main(String[] args) throws InterruptedException, MQClientException {
+    SimpleConsumer.startConsumer();
+    SimpleConsumer.startConsumer();
+    
+  }
+  
+  public static void startConsumer() throws MQClientException {
 
     // Instantiate with specified consumer group name.
     DefaultMQPushConsumer consumer = new DefaultMQPushConsumer("group_name_1");
 
     // Specify name server addresses.
-    consumer.setNamesrvAddr("192.168.20.29:9876");
+    consumer.setNamesrvAddr("localhost:9876");
     consumer.setConsumeTimeout(60000);
     // Subscribe one more more topics to consume.
-    consumer.subscribe("zhengchanglin", "*");
+    consumer.subscribe("simple", "*");
     // Register callback to execute on arrival of messages fetched from brokers.
     consumer.registerMessageListener(new MessageListenerConcurrently() {
 
@@ -35,4 +41,10 @@ public class SimpleConsumer {
 
     System.out.printf("Consumer Started.%n");
   }
+  
+  
+  
+  
+  
+  
 }

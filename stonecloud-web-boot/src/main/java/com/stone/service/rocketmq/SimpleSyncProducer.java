@@ -11,13 +11,13 @@ public class SimpleSyncProducer {
     DefaultMQProducer producer = new DefaultMQProducer("group_name_1");
     try {
       // Specify name server addresses.
-      producer.setNamesrvAddr("192.168.20.29:9876");
+      producer.setNamesrvAddr("localhost:9876");
       // Launch the instance.
       producer.setSendMsgTimeout(60000);
       producer.start();
-      for (int i = 0; i < 100; i++) {
+      for (int i = 0; i < 10; i++) {
         // Create a message instance, specifying topic, tag and message body.
-        Message msg = new Message("zhengchanglin" /* Topic */, "TagA" /* Tag */,
+        Message msg = new Message("simple" /* Topic */, "TagA" /* Tag */,
             ("Hello RocketMQ " + i).getBytes(RemotingHelper.DEFAULT_CHARSET) /* Message body */
         );
         // Call send message to deliver message to one of brokers.
